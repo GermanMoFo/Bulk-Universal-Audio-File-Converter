@@ -1,0 +1,13 @@
+﻿<Window x:Class="BUAFC_UIPrototype.MessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BUAFC_UIPrototype"
+        mc:Ignorable="d"
+        Title="MessageWindow" Height="140.671" Width="436.17">
+    <Grid>
+        <TextBox x:Name="TXTB_MESSAGE" HorizontalAlignment="Left" Height="91" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="409"/>
+
+    </Grid>
+</Window>
