@@ -1,0 +1,5 @@
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\BUAFC_Library.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\BUAFC_Library.pdb
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.csproj.CoreCompileInputs.cache
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.pdb
