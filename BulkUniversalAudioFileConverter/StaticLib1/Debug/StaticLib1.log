@@ -1,0 +1,47 @@
+﻿  madlldlib.cpp
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\bstdfile.h(53): error C2143: syntax error: missing ';' before '*'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\bstdfile.h(53): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\bstdfile.h(53): error C2238: unexpected token(s) preceding ';'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(247): error C2065: 'bstdfile_t': undeclared identifier
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(247): error C2065: 'BstdFile': undeclared identifier
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(297): error C2065: 'BstdFile': undeclared identifier
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(297): error C3861: 'NewBstdFile': identifier not found
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(298): error C2065: 'BstdFile': undeclared identifier
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(350): error C2065: 'BstdFile': undeclared identifier
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(350): error C3861: 'BstdRead': identifier not found
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(388): error C2065: 'BstdFile': undeclared identifier
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(388): error C3861: 'BstdFileEofP': identifier not found
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(567): error C2065: 'BstdFile': undeclared identifier
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(567): error C3861: 'BstdFileDestroy': identifier not found
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(261): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(207): note: see declaration of 'fopen'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(262): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(265): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(207): note: see declaration of 'fopen'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(266): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(356): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(360): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(452): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(463): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(554): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(555): error C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(181): note: see declaration of 'strerror'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(585): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(586): error C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(181): note: see declaration of 'strerror'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(614): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(630): error C4996: 'open': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _open. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_io.h(516): note: see declaration of 'open'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(632): error C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _close. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_io.h(459): note: see declaration of 'close'
+c:\users\joshua\desktop\bulk-universal-audio-file-converter\bulkuniversalaudiofileconverter\staticlib1\madlldlib.cpp(648): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(207): note: see declaration of 'fopen'

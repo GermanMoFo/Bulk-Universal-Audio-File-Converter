@@ -17,3 +17,9 @@ C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFi
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\Debug\BUAFC_UIPrototype.exe
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\Debug\BUAFC_UIPrototype.pdb
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\Debug\BUAFC_UI.csprojResolveAssemblyReference.cache
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\Debug\BUAFC_Library.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\Debug\BUAFC_Library.pdb
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\Debug\libmp3lame.32.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\Debug\libmp3lame.64.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\Debug\NAudio.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\Debug\NAudio.xml

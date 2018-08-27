@@ -13,8 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
+using BUAFC_Library;
 
-namespace BUAFC_UIPrototype
+namespace BUAFC_UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -27,11 +29,10 @@ namespace BUAFC_UIPrototype
 
 
             //Input Supported File Types Into Drop Downs
-            CMBB_FROM.Items.Add("ALL...");
-
-            PopulateItemCollectionFromIEnurmable(CMBB_FROM.Items, PROTO_Lists.Extensions);
-            PopulateItemCollectionFromIEnurmable(CMBB_AS.Items, PROTO_Lists.Extensions);
-            PopulateItemCollectionFromIEnurmable(CMBB_TO.Items, PROTO_Lists.Extensions);
+            //CMBB_FROM.Items.Add("ALL...");
+            PopulateItemCollectionFromIEnurmable(CMBB_FROM.Items, Conversion.SupportedExtensions);
+            PopulateItemCollectionFromIEnurmable(CMBB_AS.Items,   Conversion.SupportedExtensions);
+            PopulateItemCollectionFromIEnurmable(CMBB_TO.Items,   Conversion.SupportedExtensions);
 
             //Populate Tree Views
             GenerateTreeView(TV_FROM, @"F:\Music");
@@ -81,7 +82,7 @@ namespace BUAFC_UIPrototype
             //FROM
             if (RB_STRICT.IsChecked == true && CMBB_FROM.SelectedItem == null)
                 check = false;
-            else if (RB_CUSTOM.IsChecked == true && (CMBB_AS.SelectedItem == null || (TXTBX_RECKOGNIZE.Text[0] != '.')))
+            else if (RB_CUSTOM.IsChecked == true && CMBB_AS.SelectedItem == null)
                 check = false;
 
             //TO
@@ -90,13 +91,15 @@ namespace BUAFC_UIPrototype
 
             if (check)
             {
-                ProgressDialog progressDialog = new ProgressDialog();
-                progressDialog.Show();
+                
+                AttempConversion();
             }
             else
             {
-                MessageWindow messageWindow = new MessageWindow();
-                messageWindow.Message = "You Do Not Have Enough Information Entered \nOr You Have An Invalid Custom Extension Identifier\n(Must Begin With '.')";
+                MessageWindow messageWindow = new MessageWindow
+                {
+                    Message = "You Do Not Have Enough Information Entered \nOr You Have An Invalid Custom Extension Identifier\n(Must Begin With '.')"
+                };
                 messageWindow.Show();
             }
         }
@@ -113,17 +116,19 @@ namespace BUAFC_UIPrototype
 
         private void GenerateTreeView(TreeView treeView, string path)
         {
+            //Iterates all primary sub-directories of given path
             foreach (string folder in Directory.EnumerateDirectories(path))
             {
+                //Generate Tree View Node For Each Directory
                 TreeViewItem item = new TreeViewItem();
                 item.Header = folder.Substring(folder.LastIndexOf('\\') + 1);
                 item.Tag = folder;
-                item.FontWeight = FontWeights.Normal;
 
+                //Generate the folders Sub-Directory Nodes
                 FillTreeView(item, folder);
-                treeView.Items.Add(item);
 
-                
+                //Add the node to the tree
+                treeView.Items.Add(item);
             }
         }
 
@@ -131,14 +136,18 @@ namespace BUAFC_UIPrototype
         {
             foreach (string str in Directory.EnumerateDirectories(path))
             {
+                //Generate Tree View Node For Each Directory
                 TreeViewItem item = new TreeViewItem();
                 item.Header = str.Substring(str.LastIndexOf('\\') + 1);
                 item.Tag = str;
-                item.FontWeight = FontWeights.Normal;
+
+                //Add node to parent's descendants
                 parentItem.Items.Add(item);
+
+                //Recurse to find additional sub-directories
                 FillTreeView(item, str);
 
-
+                //Catalog All Files As Check Boxes
                 foreach (string file in Directory.EnumerateFiles(str))
                 {
                     TreeViewItem item_file = new TreeViewItem();
@@ -146,7 +155,6 @@ namespace BUAFC_UIPrototype
 
                     item_file.Header = fi.Name;
                     item_file.Tag = file;
-                    item_file.FontWeight = FontWeights.Normal;
                     
                     item.Items.Add(item_file);
                 }
@@ -155,6 +163,24 @@ namespace BUAFC_UIPrototype
 
         }
 
+        private void AttempConversion()
+        {
+            //Grab Target File Path - Eloquent C-Style Casting *caughs*
+            string fileToConvert = ((String)((TreeViewItem)TV_FROM.SelectedItem).Tag);
+
+            string[] temp = new string[1];
+            temp[0] = fileToConvert;
+
+            ProgressDialog progressDialog = new ProgressDialog();
+            progressDialog.Show();
+
+            Thread thread = new Thread(() => Conversion.RunConversions(temp, Conversion.MP3_To_Wav, progressDialog.Progress));
+
+            thread.Start();
+        }
+
         #endregion
+
+        
     }
 }
