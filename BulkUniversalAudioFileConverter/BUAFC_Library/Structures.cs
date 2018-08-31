@@ -25,4 +25,34 @@ namespace BUAFC_Library
             return new Progress(d);
         }
     }
+
+    public class MultiIdentifiedString
+    {
+        List<string> strs;
+
+        public MultiIdentifiedString(string[] _strs)
+        {
+            strs = new List<string>(_strs);
+        }
+
+        public void AddIdentifier(string str)
+        {
+            strs.Add(str);
+        }
+    }
+
+    public class MultiIdentifiedStringComparer : IEqualityComparer<MultiIdentifiedString>
+    {
+        public bool Equals(MultiIdentifiedString x, MultiIdentifiedString y)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetHashCode(MultiIdentifiedString obj)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    
 }

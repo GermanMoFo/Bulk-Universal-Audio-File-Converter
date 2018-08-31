@@ -9,3 +9,15 @@ C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFi
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NAudio.Lame.dll
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NAudio.xml
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.csprojResolveAssemblyReference.cache
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\libmp3lame.32.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\libmp3lame.64.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\BUAFC_Library.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\BUAFC_Library.pdb
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NAudio.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NAudio.Lame.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NAudio.xml
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.csproj.CoreCompileInputs.cache
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.csproj.CopyComplete
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.pdb
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.csprojAssemblyReference.cache

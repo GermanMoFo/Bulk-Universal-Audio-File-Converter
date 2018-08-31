@@ -60,7 +60,8 @@
     <Compile Include="ProgressDialog.xaml.cs">
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI_Lists.cs" />
+    <Compile Include="TreeViewModel.cs" />
+    <Compile Include="UI_LIB.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

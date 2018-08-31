@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using BUAFC_Library;
+using CheckBoxTreeView;
+using System.ComponentModel;
 
 namespace BUAFC_UI
 {
@@ -23,6 +25,8 @@ namespace BUAFC_UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<string> SelectedFiles = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,7 +39,18 @@ namespace BUAFC_UI
             PopulateItemCollectionFromIEnurmable(CMBB_TO.Items,   Conversion.SupportedExtensions);
 
             //Populate Tree Views
-            GenerateTreeView(TV_FROM, @"F:\Music");
+            //GenerateTreeView(TV_FROM, @"F:\Music");
+            GenerateTreeView(TV_FROM, @"C:\Users\thepe_000\Music");
+
+            //TV_FROM.ItemsSource = TreeViewModel.SetTree("Top Level");
+
+            LB_CHECK.ItemsSource = SelectedFiles;
+
+            //Generate Extension Unifiers To Accomodate Weird Extensions
+            UI_LIB.LoadAlternateExtensions();
+
+            //Generate Conversion Method Library
+            Conversion.InitConversionDictionary();
         }
 
         
@@ -103,6 +118,27 @@ namespace BUAFC_UI
                 messageWindow.Show();
             }
         }
+        private void Audio_File_Selection_State_Changed(object sender, PropertyChangedEventArgs e)
+        {
+            TreeViewModel item = sender as TreeViewModel;
+
+            if (item == null)
+                throw new NullReferenceException("Sender Was Not A Tree View Model, was Type: " + sender.GetType().ToString());
+
+            string path = item.Tag as string;
+
+            if (path == null)
+                throw new NullReferenceException("Sender Did Not Have A String Type Tag");
+
+            if (item.IsChecked.HasValue)
+                if((bool)item.IsChecked)
+                    SelectedFiles.Add(path);
+            else
+                SelectedFiles.Remove(path);
+
+            LB_CHECK.Items.Refresh();
+               
+        }
 
         #endregion
 
@@ -120,29 +156,32 @@ namespace BUAFC_UI
             foreach (string folder in Directory.EnumerateDirectories(path))
             {
                 //Generate Tree View Node For Each Directory
-                TreeViewItem item = new TreeViewItem();
-                item.Header = folder.Substring(folder.LastIndexOf('\\') + 1);
+                TreeViewModel item = new TreeViewModel();
+                item.Name = folder.Substring(folder.LastIndexOf('\\') + 1);
                 item.Tag = folder;
 
                 //Generate the folders Sub-Directory Nodes
                 FillTreeView(item, folder);
+
+                //Initialize Node
+                item.Initialize();
 
                 //Add the node to the tree
                 treeView.Items.Add(item);
             }
         }
 
-        private void FillTreeView(TreeViewItem parentItem, string path)
+        private void FillTreeView(TreeViewModel parentItem, string path)
         {
             foreach (string str in Directory.EnumerateDirectories(path))
             {
                 //Generate Tree View Node For Each Directory
-                TreeViewItem item = new TreeViewItem();
-                item.Header = str.Substring(str.LastIndexOf('\\') + 1);
+                TreeViewModel item = new TreeViewModel();
+                item.Name = str.Substring(str.LastIndexOf('\\') + 1);
                 item.Tag = str;
 
                 //Add node to parent's descendants
-                parentItem.Items.Add(item);
+                parentItem.Children.Add(item);
 
                 //Recurse to find additional sub-directories
                 FillTreeView(item, str);
@@ -150,13 +189,15 @@ namespace BUAFC_UI
                 //Catalog All Files As Check Boxes
                 foreach (string file in Directory.EnumerateFiles(str))
                 {
-                    TreeViewItem item_file = new TreeViewItem();
+                    TreeViewModel item_file = new TreeViewModel();
                     FileInfo fi = new FileInfo(file);
 
-                    item_file.Header = fi.Name;
+                    item_file.Name = fi.Name;
                     item_file.Tag = file;
+
+                    item_file.PropertyChanged += Audio_File_Selection_State_Changed;
                     
-                    item.Items.Add(item_file);
+                    item.Children.Add(item_file);
                 }
 
             }
@@ -165,18 +206,30 @@ namespace BUAFC_UI
 
         private void AttempConversion()
         {
-            //Grab Target File Path - Eloquent C-Style Casting *caughs*
-            string fileToConvert = ((String)((TreeViewItem)TV_FROM.SelectedItem).Tag);
+            //tmep code that converts a single file
+            ////Grab Target File Path - Eloquent C-Style Casting *caughs*
+            //string fileToConvert = ((String)((TreeViewItem)TV_FROM.SelectedItem).Tag);
+            //
+            //string[] temp = new string[1];
+            //temp[0] = fileToConvert;
 
-            string[] temp = new string[1];
-            temp[0] = fileToConvert;
+            //Deep Copy Selected Items So User Can Manipulate List Still
+            List<string> targetedFiles = new List<string>(SelectedFiles);
 
+            //Start Up The Progress Reporting Dialog
             ProgressDialog progressDialog = new ProgressDialog();
             progressDialog.Show();
 
-            Thread thread = new Thread(() => Conversion.RunConversions(temp, Conversion.MP3_To_Wav, progressDialog.Progress));
+            //Generate string for destination file type
+            string dest = (string)CMBB_TO.SelectedValue;
+
+            //Start A Thread On Conversions
+            Thread thread = new Thread(() => Conversion.RunConversions(targetedFiles, dest, progressDialog.Progress));
 
             thread.Start();
+            //Thread thread = new Thread(() => Conversion.RunConversions(temp, (string)CMBB_TO.SelectedValue, progressDialog.Progress));
+            //
+            //thread.Start();
         }
 
         #endregion

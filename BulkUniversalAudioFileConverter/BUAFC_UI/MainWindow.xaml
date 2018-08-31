@@ -6,13 +6,27 @@
         xmlns:local="clr-namespace:BUAFC_UI"
         mc:Ignorable="d"
         Title="BUAFC - Bulk Universal Audio File Converter" Height="441.167" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TreeViewItemStyle" TargetType="TreeViewItem">
+                <Setter Property="IsExpanded" Value="True" />
+                <Setter Property="IsSelected" Value="{Binding IsInitiallySelected, Mode=OneTime}" />
+                <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True" />
+            </Style>
+            <HierarchicalDataTemplate x:Key="CheckBoxItemTemplate" ItemsSource="{Binding Children, Mode=OneTime}">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Focusable="False" IsChecked="{Binding IsChecked}" VerticalAlignment="Center" />
+                    <ContentPresenter Content="{Binding Name, Mode=OneTime}" Margin="2,0" />
+                </StackPanel>
+            </HierarchicalDataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="0,0,0.333,7">
         <Label Content="Convert..." HorizontalAlignment="Left" Margin="27,13,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
         <Label Content="Check..." HorizontalAlignment="Left" Margin="576,13,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
         <Label Content="From..." HorizontalAlignment="Left" Margin="233,33,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
         <Label Content="To..." HorizontalAlignment="Left" Margin="382,33,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
         <GroupBox Header="Select Target Files / Folders" HorizontalAlignment="Left" Height="283" Margin="27,375,0,-253" VerticalAlignment="Top" Width="177"/>
-        <GroupBox Header="Verify Before Commiting" HorizontalAlignment="Left" Height="283" Margin="563,52,0,0" VerticalAlignment="Top" Width="177"/>
         <Button Content="Confirm And Convert" HorizontalAlignment="Left" Margin="563,343,0,0" VerticalAlignment="Top" Width="177" Height="46" FontSize="18" Click="Start_Button_Click"/>
         <Border Margin="265,60,385,331">
             <Grid Margin="-35,10,23.333,-102">
@@ -41,7 +55,10 @@
 
             </Grid>
         </GroupBox>
-        <TreeView x:Name="TV_FROM" HorizontalAlignment="Left" Height="313" Margin="10,57,0,0" VerticalAlignment="Top" Width="194"/>
+        <TreeView x:Name="TV_FROM" HorizontalAlignment="Left" Height="313" Margin="10,57,0,0" VerticalAlignment="Top" Width="194"
+                  ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                  ItemTemplate="{StaticResource CheckBoxItemTemplate}"/>
+        <ListBox x:Name="LB_CHECK" HorizontalAlignment="Left" Height="275" Margin="527,60,0,0" VerticalAlignment="Top" Width="256" RenderTransformOrigin="1,0.5"/>
 
     </Grid>
 </Window>
