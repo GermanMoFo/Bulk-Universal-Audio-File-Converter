@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BUAFC_UI"
-        mc:Ignorable="d" Height="141" Width="403.667" Title="Conversion In Progress">
+        mc:Ignorable="d" Height="141" Width="491.667" Title="Conversion In Progress">
     <Grid>
         <ProgressBar x:Name="PRGBR_PROGRESS" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="277" Margin="10,76,0,0"/>
-        <Label x:Name="TXTB_FILE" Content="STATUS TXT - REPORTS CURRENT FILE/DIRECTORY" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0" Width="377"/>
+        <Label x:Name="TXTB_Action" Content="STATUS TXT - REPORTS CURRENT ACTION ONTO A FILE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0" Width="465"/>
         <Button x:Name="BUT_CANCEL" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="301,79,0,0" Click="BUT_CANCEL_Click"/>
-        <Label x:Name="TXTB_STAGE" Content="STATUS TXT - REPORTS CURRENT CONVERSION STAGE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,14,0,0" Width="377"/>
-        <Button x:Name="BUT_OKAY" Content="Okay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="301,54,0,0" Click="BUT_OKAY_Click" IsEnabled="False"/>
+        <Label x:Name="TXTB_Directory" Content="STATUS TXT - REPORTS CURRENT DIRECTORY " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,14,0,0" Width="465"/>
+        <Button x:Name="BUT_OKAY" Content="Okay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="381,79,0,0" Click="BUT_OKAY_Click" IsEnabled="False"/>
+        <Label x:Name="TXTB_Prog" Content="STATUS TXT - REPORTS PROGRESS/TOTAL" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Width="277"/>
 
     </Grid>
 </Window>

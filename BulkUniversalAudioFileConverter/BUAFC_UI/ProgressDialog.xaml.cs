@@ -21,17 +21,11 @@ namespace BUAFC_UI
     /// </summary>
     public partial class ProgressDialog : Window
     {
-        
-        bool threadAborter = false;
+        private bool threadAborter = false;
 
-        public ProgressBar Progress
-        {
-            get
-            {
-                return PRGBR_PROGRESS;
-            }
-        }
+        public bool ThreadAborter { get => threadAborter; }
 
+        public double Maximum { get => PRGBR_PROGRESS.Maximum; set => PRGBR_PROGRESS.Maximum = value; }
 
         public ProgressDialog()
         {
@@ -41,12 +35,27 @@ namespace BUAFC_UI
         private void BUT_CANCEL_Click(object sender, RoutedEventArgs e)
         {
             threadAborter = true;
-            TXTB_STAGE.Content = "Canceling Progress Please Wait...";
+            TXTB_Action.Content = "Canceling Progress Please Wait...";
         }
 
         private void BUT_OKAY_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        public void UpdateFields(string CurrentDirectory, string CurrentAction, int Progress)
+        {
+            TXTB_Directory.Content = CurrentDirectory;
+            TXTB_Action.Content = CurrentAction;
+            TXTB_Prog.Content = Progress.ToString() + " / " + PRGBR_PROGRESS.Maximum.ToString();
+            PRGBR_PROGRESS.Value = Progress;
+
+            if(Progress == PRGBR_PROGRESS.Maximum)
+            {
+                //Conversion Is Done, Disable Cancel, Enable Okay
+                BUT_CANCEL.IsEnabled = false;
+                BUT_OKAY.IsEnabled = true;
+            }
         }
     }
 

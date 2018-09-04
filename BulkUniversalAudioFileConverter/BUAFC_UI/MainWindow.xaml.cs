@@ -26,6 +26,7 @@ namespace BUAFC_UI
     public partial class MainWindow : Window
     {
         List<string> SelectedFiles = new List<string>();
+        bool deleteOriginals = false;
 
         public MainWindow()
         {
@@ -33,24 +34,28 @@ namespace BUAFC_UI
 
 
             //Input Supported File Types Into Drop Downs
-            //CMBB_FROM.Items.Add("ALL...");
+            CMBB_FROM.Items.Add("ALL...");
+            CMBB_FROM.SelectedIndex = 0;
             PopulateItemCollectionFromIEnurmable(CMBB_FROM.Items, Conversion.SupportedExtensions);
             PopulateItemCollectionFromIEnurmable(CMBB_AS.Items,   Conversion.SupportedExtensions);
             PopulateItemCollectionFromIEnurmable(CMBB_TO.Items,   Conversion.SupportedExtensions);
-
-            //Populate Tree Views
-            //GenerateTreeView(TV_FROM, @"F:\Music");
-            GenerateTreeView(TV_FROM, @"C:\Users\thepe_000\Music");
-
-            //TV_FROM.ItemsSource = TreeViewModel.SetTree("Top Level");
-
-            LB_CHECK.ItemsSource = SelectedFiles;
 
             //Generate Extension Unifiers To Accomodate Weird Extensions
             UI_LIB.LoadAlternateExtensions();
 
             //Generate Conversion Method Library
             Conversion.InitConversionDictionary();
+
+            //Populate Tree Views
+            //GenerateTreeView(TV_FROM, @"F:\Music");
+            GenerateTreeView(TV_FROM, @"C:\Users\Joshua\Desktop\Seether");
+            //GenerateTreeView(TV_FROM, @"C:\Users\thepe_000\Music");
+
+            //TV_FROM.ItemsSource = TreeViewModel.SetTree("Top Level");
+
+            LB_CHECK.ItemsSource = SelectedFiles;
+
+            
         }
 
         
@@ -156,18 +161,39 @@ namespace BUAFC_UI
             foreach (string folder in Directory.EnumerateDirectories(path))
             {
                 //Generate Tree View Node For Each Directory
-                TreeViewModel item = new TreeViewModel();
-                item.Name = folder.Substring(folder.LastIndexOf('\\') + 1);
-                item.Tag = folder;
+                TreeViewModel primaryDirectory = new TreeViewModel();
+                primaryDirectory.Name = folder.Substring(folder.LastIndexOf('\\') + 1);
+                primaryDirectory.Tag = folder;
 
                 //Generate the folders Sub-Directory Nodes
-                FillTreeView(item, folder);
+                FillTreeView(primaryDirectory, folder);
 
                 //Initialize Node
-                item.Initialize();
+                primaryDirectory.Initialize();
 
                 //Add the node to the tree
-                treeView.Items.Add(item);
+                treeView.Items.Add(primaryDirectory);
+            }
+
+            //Catalog All Files As Check Boxes
+            foreach (string file in Directory.EnumerateFiles(path))
+            {
+                FileInfo fi = new FileInfo(file);
+
+                //Check to ensure the file type is an acceptable one
+                if (ExtensionUniformer.UnifyExtension(fi.Extension) == null)
+                    continue;
+
+                TreeViewModel item_file = new TreeViewModel();
+
+                item_file.Name = fi.Name;
+                item_file.Tag = file;
+
+                item_file.PropertyChanged += Audio_File_Selection_State_Changed;
+
+                treeView.Items.Add(item_file);
+
+                item_file.Initialize();
             }
         }
 
@@ -189,8 +215,13 @@ namespace BUAFC_UI
                 //Catalog All Files As Check Boxes
                 foreach (string file in Directory.EnumerateFiles(str))
                 {
-                    TreeViewModel item_file = new TreeViewModel();
                     FileInfo fi = new FileInfo(file);
+
+                    //Check to ensure the file type is an acceptable one
+                    if (ExtensionUniformer.UnifyExtension(fi.Extension) == null)
+                        continue;
+
+                    TreeViewModel item_file = new TreeViewModel();
 
                     item_file.Name = fi.Name;
                     item_file.Tag = file;
@@ -200,6 +231,27 @@ namespace BUAFC_UI
                     item.Children.Add(item_file);
                 }
 
+            }
+
+            //Catalog All Files As Check Boxes
+            foreach (string file in Directory.EnumerateFiles(path))
+            {
+                FileInfo fi = new FileInfo(file);
+
+                //Check to ensure the file type is an acceptable one
+                if (ExtensionUniformer.UnifyExtension(fi.Extension) == null)
+                    continue;
+
+                TreeViewModel item_file = new TreeViewModel();
+
+                item_file.Name = fi.Name;
+                item_file.Tag = file;
+
+                item_file.PropertyChanged += Audio_File_Selection_State_Changed;
+
+                parentItem.Children.Add(item_file);
+
+                item_file.Initialize();
             }
 
         }
@@ -218,13 +270,14 @@ namespace BUAFC_UI
 
             //Start Up The Progress Reporting Dialog
             ProgressDialog progressDialog = new ProgressDialog();
+            progressDialog.Maximum = targetedFiles.Count;
             progressDialog.Show();
 
             //Generate string for destination file type
             string dest = (string)CMBB_TO.SelectedValue;
 
             //Start A Thread On Conversions
-            Thread thread = new Thread(() => Conversion.RunConversions(targetedFiles, dest, progressDialog.Progress));
+            Thread thread = new Thread(() => Conversion.RunConversions(targetedFiles, dest, progressDialog.UpdateFields, deleteOriginals));
 
             thread.Start();
             //Thread thread = new Thread(() => Conversion.RunConversions(temp, (string)CMBB_TO.SelectedValue, progressDialog.Progress));
@@ -232,8 +285,12 @@ namespace BUAFC_UI
             //thread.Start();
         }
 
+
         #endregion
 
-        
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            deleteOriginals = (bool)RB_DELETE.IsChecked;
+        }
     }
 }

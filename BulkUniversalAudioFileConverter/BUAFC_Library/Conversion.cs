@@ -15,7 +15,7 @@ namespace BUAFC_Library
 {
     public static class Conversion
     {
-        private static int MP3_Bitrate;
+        private static int MP3_Bitrate = 128;
 
 
         private static string workingDirectory = Path.GetTempPath();
@@ -23,7 +23,7 @@ namespace BUAFC_Library
         public enum PathMode {InPlace, DirectoryDump};
         private static PathMode pathMode = PathMode.InPlace;
 
-        private static readonly String[] extensions = { "mp3", "wav" };
+        private static readonly String[] extensions = { ".mp3", ".wav" };
         public static readonly List<String> SupportedExtensions = new List<String>(extensions);
 
         #region Extension-To-Conversion Method Association
@@ -58,32 +58,40 @@ namespace BUAFC_Library
 
         private static Dictionary<string, Extension_WavConversionPair> ConversionDict = new Dictionary<string, Extension_WavConversionPair>();
 
+        public static int MP3_Bitrate1 { get => MP3_Bitrate; set => MP3_Bitrate = value; }
+
         public static void InitConversionDictionary()
         {
             Extension_WavConversionPair mp3 =  new Extension_WavConversionPair(MP3_To_Wav, Wav_To_MP3);
 
-            ConversionDict.Add("mp3", mp3);
+            ConversionDict.Add(".mp3", mp3);
         }
 
         #endregion
 
+        public delegate void Update(string CurrentDirectory, string CurrentAction, int Progress);
+
         /// <summary>
         /// THREAD ENTRY
         /// </summary>
-        /// <param name="targetFiles"></param>
-        /// <param name="destinationExtension"></param>
-        /// <param name="progress"></param>
-        public static void RunConversions(IEnumerable<string> targetFiles, string destinationExtension, ProgressBar progress)
+        public static void RunConversions(IEnumerable<string> targetFiles, string destinationExtension, Update update, bool deleteOriginal)
         {
-            //Set Up Progress Bar
-            Application.Current.Dispatcher.Invoke(new Action(() => { progress.Maximum = targetFiles.Count(); }), null);
+            string currentDirectory = "", currentAction = "";
+            int progress = 0;
 
             //All Converisons Point To WAV
             //This Means That Files That Start Or End As Wavs Must Be Handled Differently Then Others
 
 
+
+
             foreach (var file in targetFiles)
             {
+                //Update Status Strings
+                currentDirectory = "Currently working in " + Path.GetDirectoryName(file) + ".";
+                currentAction = "Attemping to convert " + Path.GetFileName(file) + " to " + Path.GetFileNameWithoutExtension(file) + destinationExtension + ".";
+                callUpdate();
+
                 //Determine The Destination File Path Name Based On PathMode
                 string destination = "";
 
@@ -94,7 +102,7 @@ namespace BUAFC_Library
                         //Simply drops and changes the extension of the file
                         //This leaves the original and ne in the same directory with the same name
                         //But with differing extensions
-                        destination = file.Remove(file.LastIndexOf('.') + 1) + destinationExtension;
+                        destination = file.Remove(file.LastIndexOf('.')) + destinationExtension;
                         break;
                     case PathMode.DirectoryDump:
                         //This defines a method wherein all files are dumped into a user-specified directory
@@ -102,7 +110,7 @@ namespace BUAFC_Library
                         //break;
                 }
                 //Determine Procedure Needed Based On Target And Destination Extensions
-                if (destinationExtension == "wav")
+                if (destinationExtension == ".wav")
                 {
                     //X_TO_WAV One Way
 
@@ -146,7 +154,24 @@ namespace BUAFC_Library
 
 
                 //Update Progress Bar
-                Application.Current.Dispatcher.Invoke(new Action(() => { progress.Value++; }), null);
+                progress++;
+                currentAction = "Finished converting " + Path.GetFileName(file) + " to " + Path.GetFileNameWithoutExtension(file) + destinationExtension + ".";
+                callUpdate();
+
+                if (deleteOriginal)
+                {
+                    currentAction = "Deleting " + Path.GetFileName(file) + ".";
+                    callUpdate();
+                    File.Delete(file);
+                }
+            }
+
+            currentAction = "Finshed All Conversions";
+            callUpdate();
+
+            void callUpdate()
+            {
+                Application.Current.Dispatcher.Invoke(new Action(() => { update(currentDirectory, currentAction, progress); }), null);
             }
         }
 

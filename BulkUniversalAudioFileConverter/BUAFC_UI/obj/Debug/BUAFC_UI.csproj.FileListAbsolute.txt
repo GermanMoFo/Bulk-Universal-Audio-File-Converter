@@ -50,3 +50,4 @@ C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudi
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\Debug\BUAFC_UIPrototype.exe
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\Debug\BUAFC_UIPrototype.pdb
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\Debug\NAudio.Lame.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\Debug\NAudio.Lame.dll

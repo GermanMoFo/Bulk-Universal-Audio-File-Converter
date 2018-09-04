@@ -33,6 +33,11 @@ namespace BUAFC_Library
             extensionGroupings.Add(new ExtensionGrouping(Primary.ToLower(), temp));
         }
 
+        /// <summary>
+        /// Returns Null if Not Supported
+        /// </summary>
+        /// <param name="Extension"></param>
+        /// <returns></returns>
         public static string UnifyExtension(string Extension)
         {
             Extension = Extension.ToLower();
@@ -48,7 +53,7 @@ namespace BUAFC_Library
                             return grouping.PrimaryExtension;
             }
 
-            throw new ArgumentException("Extension alternate " + Extension + " is not accounted for.");
+            return null;
         }
     }
 }
