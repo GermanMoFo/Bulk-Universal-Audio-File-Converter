@@ -7,6 +7,7 @@ using NVorbis;
 using NAudio;
 using NAudio.Wave;
 using NAudio.Vorbis;
+using OggVorbisEncoder;
 
 namespace BUAFC_Debug
 {
@@ -21,7 +22,7 @@ namespace BUAFC_Debug
 
             using (var reader = new AudioFileReader(waveFile))
             {
-                using (var writer = new NVorbis)
+                using (var writer = new OggVorbisEncoder.Enco)
             }
         }
     }
