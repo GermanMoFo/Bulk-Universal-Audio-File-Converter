@@ -193,6 +193,22 @@ namespace BUAFC_Library
             }
         }
 
+        public static void FLAC_To_Wav(string flacFile, string wavFile)
+        {
+            using (NAudio.Flac.FlacReader reader = new NAudio.Flac.FlacReader(flacFile))
+            {
+                using (WaveStream pcmStream = WaveFormatConversionStream.CreatePcmStream(reader))
+                {
+                    WaveFileWriter.CreateWaveFile(wavFile, pcmStream);
+                }
+            }
+        }
+
+        public static void OGG_To_Wav(string oggFile, string wavFile)
+        {
+            
+        }
+
         #endregion
 
         #region Wav_To_X
@@ -202,6 +218,17 @@ namespace BUAFC_Library
             using (var reader = new AudioFileReader(waveFile))
             using (var writer = new LameMP3FileWriter(mp3File, reader.WaveFormat, MP3_Bitrate))
                 reader.CopyTo(writer);
+        }
+
+        public static void Wav_To_FLAC(string waveFile, string flacFile)
+        {
+            string tempPath = workingDirectory + Path.GetFileName(waveFile);
+
+            File.Copy(waveFile, tempPath);
+
+            AudioFileReader reader = new AudioFileReader(tempPath);
+
+            //WaveOverFlacStream n = new WaveOverFlacStream(reader, WaveOverFlacStreamMode.Encode);
         }
 
         #endregion

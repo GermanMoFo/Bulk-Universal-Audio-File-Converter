@@ -48,8 +48,8 @@ namespace BUAFC_UI
 
             //Populate Tree Views
             //GenerateTreeView(TV_FROM, @"F:\Music");
-            GenerateTreeView(TV_FROM, @"C:\Users\Joshua\Desktop\Seether");
-            //GenerateTreeView(TV_FROM, @"C:\Users\thepe_000\Music");
+            //GenerateTreeView(TV_FROM, @"C:\Users\Joshua\Desktop\Seether");
+            GenerateTreeView(TV_FROM, @"C:\Users\thepe_000\Music");
 
             //TV_FROM.ItemsSource = TreeViewModel.SetTree("Top Level");
 

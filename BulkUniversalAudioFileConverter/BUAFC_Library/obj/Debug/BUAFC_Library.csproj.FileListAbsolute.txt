@@ -21,3 +21,9 @@ C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudi
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.pdb
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.csprojAssemblyReference.cache
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\Debug\BUAFC_Library.csprojResolveAssemblyReference.cache
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NAudio.Flac.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NAudio.Vorbis.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NAudio.WindowsMediaFormat.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NVorbis.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NAudio.Vorbis.xml
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\Debug\NVorbis.xml
