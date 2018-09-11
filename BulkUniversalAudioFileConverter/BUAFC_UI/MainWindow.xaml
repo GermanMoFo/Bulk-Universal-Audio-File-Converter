@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BUAFC_UI"
         mc:Ignorable="d"
-        Title="BUAFC - Bulk Universal Audio File Converter" Height="441.167" Width="1030.752">
+        Title="BUAFC - Bulk Universal Audio File Converter" Height="438.824" Width="1047.932">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="TreeViewItemStyle" TargetType="TreeViewItem">
@@ -22,8 +22,8 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid Margin="0,0,0.333,7">
-        <Label Content="Convert..." HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
-        <Label Content="Check..." HorizontalAlignment="Left" Margin="680,21,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
+        <Label Content="Convert..." HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top" Width="108" Height="39" FontSize="20"/>
+        <Label Content="Check..." HorizontalAlignment="Left" Margin="680,26,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
         <Label Content="From..." HorizontalAlignment="Left" Margin="468,49,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
         <Label Content="To..." HorizontalAlignment="Left" Margin="468,178,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
         <Button Content="Confirm And Convert" HorizontalAlignment="Left" Margin="758,340,0,0" VerticalAlignment="Top" Width="177" Height="46" FontSize="18" Click="Start_Button_Click"/>
@@ -49,7 +49,7 @@
                         <RadioButton Content="Preserve Originals" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" Checked="RadioButton_Checked"/>
                     </WrapPanel>
                 </GroupBox>
-                <Button x:Name="BUT_ADV" Content="Advanced..." HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="BUT_ADV" Content="Advanced..." HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Width="75" Click="BUT_ADV_Click"/>
 
             </Grid>
         </GroupBox>
@@ -65,7 +65,12 @@
                 </TransformGroup>
             </TreeView.RenderTransform>
         </TreeView>
-        <ListBox x:Name="LB_CHECK" HorizontalAlignment="Left" Height="275" Margin="680,60,0,0" VerticalAlignment="Top" Width="334" RenderTransformOrigin="1,0.5"/>
+        <ListBox x:Name="LB_CHECK" HorizontalAlignment="Left" Height="250" Margin="680,85,0,0" VerticalAlignment="Top" Width="334" RenderTransformOrigin="1,0.5"/>
+        <Button x:Name="BUT_DISPLAYLESS" Content="&gt;" Margin="704,59,313,316.333" Click="BUT_DISPLAYLESS_Click"/>
+        <Button x:Name="BUT_DISPLAYMORE" Content="&lt;" Margin="680,59,337,316.333" Click="BUT_DISPLAYMORE_Click"/>
+        <TextBox x:Name="TXTB_PRIMARYDIRECTORY" HorizontalAlignment="Left" Height="23" Margin="123,34,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="229"/>
+        <Button x:Name="BUT_BROWSEPRIMARYDIRECTORY" Content="Browse..." HorizontalAlignment="Left" Margin="356,36,0,0" VerticalAlignment="Top" Width="75" Click="BUT_BROWSEPRIMARYDIRECTORY_Click"/>
+        <Button x:Name="BUT_REFRESH" Content="Refresh" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Width="75" Click="BUT_REFRESH_Click"/>
 
     </Grid>
 </Window>

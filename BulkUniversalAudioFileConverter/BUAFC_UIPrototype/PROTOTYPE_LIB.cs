@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BUAFC_UIPrototype
+namespace BUAFC_UI\
 {
     static class PROTO_Lists
     {

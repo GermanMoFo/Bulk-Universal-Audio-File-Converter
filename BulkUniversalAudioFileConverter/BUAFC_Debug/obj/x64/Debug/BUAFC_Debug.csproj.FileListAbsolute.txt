@@ -1,0 +1,15 @@
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\BUAFC_Debug.exe.config
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\BUAFC_Debug.exe
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\BUAFC_Debug.pdb
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\libFlaCdotNet.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\NAudio.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\NAudio.Vorbis.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\NVorbis.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\OggVorbisEncoder.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\NAudio.xml
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\NAudio.Vorbis.xml
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x64\Debug\NVorbis.xml
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\obj\x64\Debug\BUAFC_Debug.csprojResolveAssemblyReference.cache
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\obj\x64\Debug\BUAFC_Debug.csproj.CoreCompileInputs.cache
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\obj\x64\Debug\BUAFC_Debug.exe
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\obj\x64\Debug\BUAFC_Debug.pdb

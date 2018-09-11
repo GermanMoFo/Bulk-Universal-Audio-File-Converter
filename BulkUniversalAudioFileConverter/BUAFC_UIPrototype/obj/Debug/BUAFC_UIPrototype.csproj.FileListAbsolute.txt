@@ -35,7 +35,6 @@ C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFi
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UIPrototype\obj\Debug\BUAFC_UIPrototype.csproj.CoreCompileInputs.cache
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UIPrototype\obj\Debug\BUAFC_UIPrototype.exe
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UIPrototype\obj\Debug\BUAFC_UIPrototype.pdb
-C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UIPrototype\obj\Debug\BUAFC_UIPrototype.csprojResolveAssemblyReference.cache
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UIPrototype\bin\Debug\BUAFC_UIPrototype.exe.config
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UIPrototype\bin\Debug\BUAFC_UIPrototype.exe
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UIPrototype\bin\Debug\BUAFC_UIPrototype.pdb

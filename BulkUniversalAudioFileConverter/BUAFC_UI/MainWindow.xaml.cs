@@ -17,6 +17,7 @@ using System.Threading;
 using BUAFC_Library;
 using CheckBoxTreeView;
 using System.ComponentModel;
+using Avalon.Windows.Dialogs;
 
 namespace BUAFC_UI
 {
@@ -26,7 +27,13 @@ namespace BUAFC_UI
     public partial class MainWindow : Window
     {
         List<string> SelectedFiles = new List<string>();
+
+        List<string> TruncatedFiles = new List<string>();
+        private int numberDirectoriesToTruncate = 0;
+
         bool deleteOriginals = false;
+
+        string PrimaryDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
 
         public MainWindow()
         {
@@ -44,18 +51,16 @@ namespace BUAFC_UI
             UI_LIB.LoadAlternateExtensions();
 
             //Generate Conversion Method Library
-            Conversion.InitConversionDictionary();
+            Conversion.Initialize();
 
             //Populate Tree Views
-            //GenerateTreeView(TV_FROM, @"F:\Music");
-            //GenerateTreeView(TV_FROM, @"C:\Users\Joshua\Desktop\Seether");
-            GenerateTreeView(TV_FROM, @"C:\Users\thepe_000\Music");
+            RefreshTreeView(); 
 
-            //TV_FROM.ItemsSource = TreeViewModel.SetTree("Top Level");
+            //Link Checking ListBox
+            LB_CHECK.ItemsSource = TruncatedFiles;
 
-            LB_CHECK.ItemsSource = SelectedFiles;
-
-            
+            //Initialize Primary Directory Text
+            TXTB_PRIMARYDIRECTORY.Text = PrimaryDirectoryPath;
         }
 
         
@@ -123,6 +128,7 @@ namespace BUAFC_UI
                 messageWindow.Show();
             }
         }
+
         private void Audio_File_Selection_State_Changed(object sender, PropertyChangedEventArgs e)
         {
             TreeViewModel item = sender as TreeViewModel;
@@ -141,13 +147,29 @@ namespace BUAFC_UI
             else
                 SelectedFiles.Remove(path);
 
+            RefreshTruncatedList();
             LB_CHECK.Items.Refresh();
                
+        }
+
+        private void RefreshTruncatedList()
+        {
+            TruncatedFiles.Clear();
+
+            foreach (var path in SelectedFiles)
+                TruncatedFiles.Add(UI_LIB.TruncatePathToDirectory(path, numberDirectoriesToTruncate));
+
         }
 
         #endregion
 
         #region ProcessingFunctions
+
+        public void RefreshTreeView()
+        {
+            TV_FROM.Items.Clear();
+            GenerateTreeView(TV_FROM, PrimaryDirectoryPath);
+        }
 
         private void PopulateItemCollectionFromIEnurmable<T>(ItemCollection items, IEnumerable<T> list)
         {
@@ -291,6 +313,53 @@ namespace BUAFC_UI
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             deleteOriginals = (bool)RB_DELETE.IsChecked;
+        }
+
+        private void BUT_ADV_Click(object sender, RoutedEventArgs e)
+        {
+            AdvancedOptionsWindow window = new AdvancedOptionsWindow();
+            window.Show();
+            
+        }
+
+        private void BUT_DISPLAYMORE_Click(object sender, RoutedEventArgs e)
+        {
+            --numberDirectoriesToTruncate;
+
+            if (numberDirectoriesToTruncate == 0)
+                BUT_DISPLAYMORE.IsEnabled = false;
+
+            RefreshTruncatedList();
+            LB_CHECK.Items.Refresh();
+        }
+
+        private void BUT_DISPLAYLESS_Click(object sender, RoutedEventArgs e)
+        {
+            ++numberDirectoriesToTruncate;
+
+            BUT_DISPLAYMORE.IsEnabled = true;
+
+            RefreshTruncatedList();
+            LB_CHECK.Items.Refresh();
+        }
+
+        private void BUT_BROWSEPRIMARYDIRECTORY_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog hello = new FolderBrowserDialog();
+
+            if (hello.ShowDialog() == true)
+            {
+                PrimaryDirectoryPath = hello.SelectedPath;
+                SelectedFiles.Clear();
+                RefreshTruncatedList();
+                RefreshTreeView();
+            }
+            
+        }
+
+        private void BUT_REFRESH_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshTreeView();
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿<Window x:Class="BUAFC_UIPrototype.ProgressDialog"
+﻿<Window x:Class="BUAFC_UI\.ProgressDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BUAFC_UIPrototype"
+        xmlns:local="clr-namespace:BUAFC_UI\"
         mc:Ignorable="d" Height="141" Width="403.667" Title="Conversion In Progress">
     <Grid>
         <ProgressBar x:Name="PRGBR_PROGRESS" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="277" Margin="10,76,0,0"/>

@@ -40,6 +40,7 @@ namespace BUAFC_UI
 
         private void BUT_OKAY_Click(object sender, RoutedEventArgs e)
         {
+            
             Close();
         }
 

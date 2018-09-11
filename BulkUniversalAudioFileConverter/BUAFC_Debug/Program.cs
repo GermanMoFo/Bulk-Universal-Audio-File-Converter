@@ -3,27 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NVorbis;
-using NAudio;
+using System.IO;
 using NAudio.Wave;
-using NAudio.Vorbis;
+using NAudio.WindowsMediaFormat;
+using NAudio;
 using OggVorbisEncoder;
 
 namespace BUAFC_Debug
 {
+
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            string workingDirectory = @"C:\Users\thepe_000\Music\working";
-            string waveFile = @"C:\Users\thepe_000\Music\Alan Parsons_702 Rocker\Loop\Beats\DrumLoop1_121.5bpm.wav";
-            string flacFile = @"C:\Users\thepe_000\Music\Alan Parsons_702 Rocker\Loop\Beats\DrumLoop1_121.5bpm.flac";
-            string oggFile = @"C:\Users\thepe_000\Music\Alan Parsons_702 Rocker\Loop\Beats\DrumLoop1_121.5bpm.ogg";
+            string hello = @"C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\AFile.txt";
 
-            using (var reader = new AudioFileReader(waveFile))
-            {
-                using (var writer = new OggVorbisEncoder.Enco)
-            }
+            string temp = TruncatePathToDirectory(hello, 2);
+
+            Console.WriteLine("..." + temp);
+
+            Console.ReadLine();
+        }
+
+        public static string TruncatePathToDirectory(string path, int numberOfDirectoryLevelsToKeep)
+        {
+            List<int> subDirectoryIndexes = new List<int>();
+
+            for (int i = 0; i < path.Length; ++i)
+                if (path[i] == '\\')
+                    subDirectoryIndexes.Add(i);
+
+            return path.Substring(subDirectoryIndexes[subDirectoryIndexes.Count - numberOfDirectoryLevelsToKeep]);
         }
     }
 }

@@ -1,0 +1,19 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BUAFC_UI"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="BUAFC_UI.AdvancedOptionsWindow"
+        mc:Ignorable="d"
+        Title="AdvancedOptionsWindow" Height="311.398" Width="276.627">
+    <Grid>
+        <Label Content="Encoding Bit-Rate:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="162"/>
+        <Label Content="OGG File Sample Size:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="162"/>
+
+        <xctk:IntegerUpDown x:Name="IUD_SAMPLE" HorizontalAlignment="Left" Margin="172,46,0,0" VerticalAlignment="Top" Width="73" Value="1024" ValueChanged="IUD_SAMPLE_CHANGED"/>
+        <xctk:IntegerUpDown x:Name="IUD_BITRATE" HorizontalAlignment="Left" Margin="172,15,0,0" VerticalAlignment="Top" Width="73" Value="192000" ValueChanged="IUD_BITRATE_CHANGED"/>
+        <GroupBox x:Name="GB_MULTITHREADING" Header="Multi-Threading (Unimplemented)" HorizontalAlignment="Left" Height="183" Margin="10,72,0,0" VerticalAlignment="Top" Width="235"/>
+
+    </Grid>
+</Window>

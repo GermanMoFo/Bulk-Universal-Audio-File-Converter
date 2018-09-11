@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
 
-namespace BUAFC_UIPrototype
+namespace BUAFC_UI\
 {
     /// <summary>
     /// Interaction logic for ProgressDialog.xaml

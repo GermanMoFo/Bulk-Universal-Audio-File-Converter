@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BUAFC_UIPrototype.Properties
+namespace BUAFC_UI\.Properties
 {
 
 
