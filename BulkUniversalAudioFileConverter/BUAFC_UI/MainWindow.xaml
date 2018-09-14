@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BUAFC_UI"
         mc:Ignorable="d"
-        Title="BUAFC - Bulk Universal Audio File Converter" Height="438.824" Width="1047.932">
+        Title="BUAFC - Bulk Universal Audio File Converter" Height="535" Width="950" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="950" MinHeight="545" >
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="TreeViewItemStyle" TargetType="TreeViewItem">
@@ -21,56 +21,50 @@
             </HierarchicalDataTemplate>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="0,0,0.333,7">
-        <Label Content="Convert..." HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top" Width="108" Height="39" FontSize="20"/>
-        <Label Content="Check..." HorizontalAlignment="Left" Margin="680,26,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
-        <Label Content="From..." HorizontalAlignment="Left" Margin="468,49,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
-        <Label Content="To..." HorizontalAlignment="Left" Margin="468,178,0,0" VerticalAlignment="Top" Width="189" Height="39" FontSize="20"/>
-        <Button Content="Confirm And Convert" HorizontalAlignment="Left" Margin="758,340,0,0" VerticalAlignment="Top" Width="177" Height="46" FontSize="18" Click="Start_Button_Click"/>
-        <Border Margin="265,74,384.667,317">
-            <Grid Margin="189,10,-200,-102">
-                <RadioButton x:Name="RB_STRICT" Content="" HorizontalAlignment="Left" Margin="4,0,0,74" VerticalAlignment="Bottom" IsChecked="True" Checked="RadioButton_Checked_1" Height="22"/>
-                <RadioButton x:Name="RB_CUSTOM" Content="Custom" HorizontalAlignment="Left" Margin="4,29,0,0" VerticalAlignment="Top" Height="19" Width="63" Checked="RadioButton_Checked_1"/>
-                <ComboBox x:Name="CMBB_FROM" HorizontalAlignment="Left" Margin="23,2,0,0" VerticalAlignment="Top" Width="120"/>
-                <Label x:Name="LB_RECKOGNIZE" Content="Reckonize: " HorizontalAlignment="Left" Margin="4,41,0,0" VerticalAlignment="Top" Width="68" Height="31" IsEnabled="False"/>
-                <TextBox x:Name="TXTBX_RECKOGNIZE" HorizontalAlignment="Left" Height="23" Margin="72,44,0,0" TextWrapping="Wrap" Text=".MPEG" VerticalAlignment="Top" Width="71" IsEnabled="False"/>
-                <Label x:Name="LB_AS" Content="As:" HorizontalAlignment="Left" Margin="0,68,0,-0.333" VerticalAlignment="Top" Width="25" Height="31" IsEnabled="False"/>
-                <ComboBox x:Name="CMBB_AS" HorizontalAlignment="Left" Margin="23,72,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+    <Grid Margin="0,0,-6.667,7.667">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="377*"/>
+            <ColumnDefinition Width="193*" MaxWidth="200"/>
+            <ColumnDefinition Width="365*"/>
+        </Grid.ColumnDefinitions>
+        <Border Margin="103.333,32,89.333,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="0" Width="0" Grid.Column="1"/>
+        <Grid Margin="3.333,28,14.333,44.667" HorizontalAlignment="Center" Width="175" Grid.Column="1">
+            <Label Content="To..." HorizontalAlignment="Center" Margin="28,146,53,0" VerticalAlignment="Top" Width="51" Height="39" FontSize="20"/>
+            <ComboBox x:Name="CMBB_TO" HorizontalAlignment="Center" Margin="26,185,17,-0.333" VerticalAlignment="Top" Width="89" SelectionChanged="CMBB_TO_SelectionChanged"/>
+            <Label Content="From..." HorizontalAlignment="Center" Margin="12,0,38,0" VerticalAlignment="Top" Width="82" Height="39" FontSize="20"/>
+            <ComboBox x:Name="CMBB_FROM" HorizontalAlignment="Center" Margin="25,34,17,0" VerticalAlignment="Top" Width="90"/>
+            <RadioButton x:Name="RB_STRICT" Content="" HorizontalAlignment="Center" VerticalAlignment="Top" IsChecked="True" Checked="RadioButton_Checked_1" Height="22" Margin="2,36,93,0" Width="37"/>
+            <RadioButton x:Name="RB_CUSTOM" Content="Custom" HorizontalAlignment="Center" Margin="2,61,62,0" VerticalAlignment="Top" Height="19" Width="68" Checked="RadioButton_Checked_1"/>
+            <TextBox x:Name="TXTBX_RECKOGNIZE" HorizontalAlignment="Center" Height="23" Margin="86,85,29,0" TextWrapping="Wrap" Text=".MPEG" VerticalAlignment="Top" Width="60" IsEnabled="False"/>
+            <ComboBox x:Name="CMBB_AS" HorizontalAlignment="Center" Margin="53,109,32,0" VerticalAlignment="Top" Width="90" IsEnabled="False" Height="19"/>
+            <Label x:Name="LB_RECKOGNIZE" Content="Reckonize: " HorizontalAlignment="Center" Margin="0,83,64,0" VerticalAlignment="Top" Width="68" Height="31" IsEnabled="False" RenderTransformOrigin="-0.091,-2.651"/>
+            <Label x:Name="LB_AS" Content="As:" HorizontalAlignment="Center" Margin="26,108,125,0" VerticalAlignment="Top" Width="24" Height="31" IsEnabled="False"/>
+            <GroupBox Header="Options" HorizontalAlignment="Center" Height="127" Margin="10,229,6,0" VerticalAlignment="Top" Width="159">
+                <Grid Margin="-1,0,5,-13.333" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <GroupBox Header="Original Files" HorizontalAlignment="Left" Height="68" VerticalAlignment="Top" Width="128" Margin="10,10,0,0">
+                        <WrapPanel Margin="4,4,-2,0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <RadioButton x:Name="RB_DELETE" Content="Delete Originals" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" Checked="RadioButton_Checked"/>
+                            <RadioButton Content="Preserve Originals" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" Checked="RadioButton_Checked"/>
+                        </WrapPanel>
+                    </GroupBox>
+                    <Button x:Name="BUT_ADV" Content="Advanced..." HorizontalAlignment="Center" Margin="10,83,53,0" VerticalAlignment="Top" Width="75" Click="BUT_ADV_Click"/>
 
-            </Grid>
-        </Border>
-        <ComboBox x:Name="CMBB_TO" HorizontalAlignment="Left" Margin="478,210,0,0" VerticalAlignment="Top" Width="120"/>
-        <GroupBox Header="Options" HorizontalAlignment="Left" Height="135" Margin="455,232,0,0" VerticalAlignment="Top" Width="202">
-            <Grid Margin="-9,0,-11.333,-3.667">
-                <CheckBox Content="Drop All Meta-Data" HorizontalAlignment="Left" Margin="5,66,-5,0" VerticalAlignment="Top" Width="211" FontSize="14" Height="21"/>
-                <GroupBox Header="Original Files" HorizontalAlignment="Left" Height="61" VerticalAlignment="Top" Width="128" Margin="5,0,0,0">
-                    <WrapPanel Margin="4,4,-2,0" Orientation="Vertical">
-                        <RadioButton x:Name="RB_DELETE" Content="Delete Originals" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" Checked="RadioButton_Checked"/>
-                        <RadioButton Content="Preserve Originals" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" Checked="RadioButton_Checked"/>
-                    </WrapPanel>
-                </GroupBox>
-                <Button x:Name="BUT_ADV" Content="Advanced..." HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Width="75" Click="BUT_ADV_Click"/>
-
-            </Grid>
-        </GroupBox>
-        <TreeView x:Name="TV_FROM" HorizontalAlignment="Left" Height="313" Margin="10,57,0,0" VerticalAlignment="Top" Width="400"
-                  ItemContainerStyle="{StaticResource TreeViewItemStyle}"
-                  ItemTemplate="{StaticResource CheckBoxItemTemplate}" RenderTransformOrigin="0,0.5" IsManipulationEnabled="True">
-            <TreeView.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="1" ScaleX="1.05"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TreeView.RenderTransform>
-        </TreeView>
-        <ListBox x:Name="LB_CHECK" HorizontalAlignment="Left" Height="250" Margin="680,85,0,0" VerticalAlignment="Top" Width="334" RenderTransformOrigin="1,0.5"/>
-        <Button x:Name="BUT_DISPLAYLESS" Content="&gt;" Margin="704,59,313,316.333" Click="BUT_DISPLAYLESS_Click"/>
-        <Button x:Name="BUT_DISPLAYMORE" Content="&lt;" Margin="680,59,337,316.333" Click="BUT_DISPLAYMORE_Click"/>
-        <TextBox x:Name="TXTB_PRIMARYDIRECTORY" HorizontalAlignment="Left" Height="23" Margin="123,34,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="229"/>
-        <Button x:Name="BUT_BROWSEPRIMARYDIRECTORY" Content="Browse..." HorizontalAlignment="Left" Margin="356,36,0,0" VerticalAlignment="Top" Width="75" Click="BUT_BROWSEPRIMARYDIRECTORY_Click"/>
-        <Button x:Name="BUT_REFRESH" Content="Refresh" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Width="75" Click="BUT_REFRESH_Click"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Button x:Name="BUT_BROWSEPRIMARYDIRECTORY" Content="Browse..." HorizontalAlignment="Right" Margin="0,34,1.333,0" VerticalAlignment="Top" Width="57" Click="BUT_BROWSEPRIMARYDIRECTORY_Click" Height="23"/>
+        <TextBox x:Name="TXTB_PRIMARYDIRECTORY" Height="23" Margin="-1,34,56.333,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" MinWidth="318" MinHeight="23"/>
+        <Label Content="Convert..." HorizontalAlignment="Left" Width="108" Height="39" FontSize="20" Margin="-1,2,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="BUT_REFRESH" Content="Refresh" HorizontalAlignment="Left" Margin="0,0,0,21.667" Width="75" Click="BUT_REFRESH_Click" VerticalAlignment="Bottom" Height="20"/>
+        <Button Content="Confirm And Convert" HorizontalAlignment="Left" Margin="1.667,0,0,7.667" VerticalAlignment="Bottom" Width="177" Height="30" FontSize="18" Click="Start_Button_Click" Grid.Column="2"/>
+        <Button x:Name="BUT_DISPLAYLESS" Content="&gt;" Margin="23.667,29,0,0" Click="BUT_DISPLAYLESS_Click" VerticalAlignment="Top" Height="27" HorizontalAlignment="Left" Width="24" Grid.Column="2"/>
+        <Label Content="Check..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="189" Height="39" FontSize="20" Margin="50.667,22,0,0" Grid.Column="2"/>
+        <Button x:Name="BUT_DISPLAYMORE" Content="&lt;" Margin="1.667,30,0,0" Click="BUT_DISPLAYMORE_Click" HorizontalAlignment="Left" Width="24" VerticalAlignment="Top" Height="27" Grid.Column="2"/>
+        <TreeView x:Name="TV_FROM" Margin="0,56,1.667,40.667" RenderTransformOrigin="0,1" MinWidth="350" MinHeight="400" />
+        <ListBox x:Name="LB_CHECK" Margin="1.667,55,15,36.333" RenderTransformOrigin="0.5,0.5" MinWidth="350" MinHeight="400" Grid.Column="2"/>
 
     </Grid>
 </Window>

@@ -161,6 +161,58 @@ namespace BUAFC_UI
 
         }
 
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            deleteOriginals = (bool)RB_DELETE.IsChecked;
+        }
+
+        private void BUT_ADV_Click(object sender, RoutedEventArgs e)
+        {
+            AdvancedOptionsWindow window = new AdvancedOptionsWindow();
+            window.Show();
+
+        }
+
+        private void BUT_DISPLAYMORE_Click(object sender, RoutedEventArgs e)
+        {
+            --numberDirectoriesToTruncate;
+
+            if (numberDirectoriesToTruncate == 0)
+                BUT_DISPLAYMORE.IsEnabled = false;
+
+            RefreshTruncatedList();
+            LB_CHECK.Items.Refresh();
+        }
+
+        private void BUT_DISPLAYLESS_Click(object sender, RoutedEventArgs e)
+        {
+            ++numberDirectoriesToTruncate;
+
+            BUT_DISPLAYMORE.IsEnabled = true;
+
+            RefreshTruncatedList();
+            LB_CHECK.Items.Refresh();
+        }
+
+        private void BUT_BROWSEPRIMARYDIRECTORY_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog hello = new FolderBrowserDialog();
+
+            if (hello.ShowDialog() == true)
+            {
+                PrimaryDirectoryPath = hello.SelectedPath;
+                SelectedFiles.Clear();
+                RefreshTruncatedList();
+                RefreshTreeView();
+            }
+
+        }
+
+        private void BUT_REFRESH_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshTreeView();
+        }
+
         #endregion
 
         #region ProcessingFunctions
@@ -310,56 +362,11 @@ namespace BUAFC_UI
 
         #endregion
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+
+
+        private void CMBB_TO_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            deleteOriginals = (bool)RB_DELETE.IsChecked;
-        }
 
-        private void BUT_ADV_Click(object sender, RoutedEventArgs e)
-        {
-            AdvancedOptionsWindow window = new AdvancedOptionsWindow();
-            window.Show();
-            
-        }
-
-        private void BUT_DISPLAYMORE_Click(object sender, RoutedEventArgs e)
-        {
-            --numberDirectoriesToTruncate;
-
-            if (numberDirectoriesToTruncate == 0)
-                BUT_DISPLAYMORE.IsEnabled = false;
-
-            RefreshTruncatedList();
-            LB_CHECK.Items.Refresh();
-        }
-
-        private void BUT_DISPLAYLESS_Click(object sender, RoutedEventArgs e)
-        {
-            ++numberDirectoriesToTruncate;
-
-            BUT_DISPLAYMORE.IsEnabled = true;
-
-            RefreshTruncatedList();
-            LB_CHECK.Items.Refresh();
-        }
-
-        private void BUT_BROWSEPRIMARYDIRECTORY_Click(object sender, RoutedEventArgs e)
-        {
-            FolderBrowserDialog hello = new FolderBrowserDialog();
-
-            if (hello.ShowDialog() == true)
-            {
-                PrimaryDirectoryPath = hello.SelectedPath;
-                SelectedFiles.Clear();
-                RefreshTruncatedList();
-                RefreshTreeView();
-            }
-            
-        }
-
-        private void BUT_REFRESH_Click(object sender, RoutedEventArgs e)
-        {
-            RefreshTreeView();
         }
     }
 }
