@@ -8,6 +8,7 @@ using NAudio.Wave;
 using NAudio.WindowsMediaFormat;
 using NAudio;
 using OggVorbisEncoder;
+using CheckBoxTreeView;
 
 namespace BUAFC_Debug
 {
@@ -15,7 +16,7 @@ namespace BUAFC_Debug
     class Program
     {
         static DisplayList tree;
-        static string path = @"C:\Users\thepe_000\Desktop\Testing Folder";
+        static string path = @"C:\Users\Joshua\Desktop\TestFolder";
         private static void Main(string[] args)
         {
 
@@ -24,21 +25,77 @@ namespace BUAFC_Debug
             FileSystemWatcher watcher = new FileSystemWatcher(path);
 
             watcher.EnableRaisingEvents = true;
-            watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.DirectoryName | NotifyFilters.Size;
+            watcher.NotifyFilter = NotifyFilters.FileName  | NotifyFilters.DirectoryName;
             watcher.IncludeSubdirectories = true;
-            watcher.Changed += new FileSystemEventHandler(watcher_changed);
-            watcher.Renamed += new RenamedEventHandler(watcher_changed);
+
+            //watcher.Changed += new FileSystemEventHandler(watcher_changed);
+            watcher.Renamed += new RenamedEventHandler(watcher_renamed);
+            watcher.Created += new FileSystemEventHandler(watcher_created);
+            watcher.Deleted += new FileSystemEventHandler(watcher_deleted);
+
             tree = GenerateDisplayList(path);
             tree.Display();
 
-
+            
 
 
             Console.ReadLine();
         }
 
+
         private static void watcher_changed(object sender, FileSystemEventArgs e)
         {
+            tree = GenerateDisplayList(path);
+            Console.Clear();
+            tree.Display();
+
+            if (e.FullPath.Contains("MySpecialPhrase"))
+            {
+                Console.WriteLine("REEEE");
+            }
+
+            Console.WriteLine("\n\nAffected File Last Updated: " + e.FullPath);
+        }
+
+        private static void watcher_renamed(object sender, RenamedEventArgs e)
+        {
+            //Triggered By A Renamed File Or Directory,
+            //Follow OldPath, update to FullPath
+            //And Change Name
+
+            tree = GenerateDisplayList(path);
+            Console.Clear();
+            tree.Display();
+
+            if (e.FullPath.Contains("MySpecialPhrase"))
+            {
+                Console.WriteLine("REEEE");
+            }
+
+            Console.WriteLine("\n\nAffected File Last Updated: " + e.FullPath);
+        }
+
+        private static void watcher_created(object sender, FileSystemEventArgs e)
+        {
+            
+
+            tree = GenerateDisplayList(path);
+            Console.Clear();
+            tree.Display();
+
+            if (e.FullPath.Contains("MySpecialPhrase"))
+            {
+                Console.WriteLine("REEEE");
+            }
+
+            Console.WriteLine("\n\nAffected File Last Updated: " + e.FullPath);
+        }
+
+        private static void watcher_deleted(object sender, FileSystemEventArgs e)
+        {
+            
+
+           
             tree = GenerateDisplayList(path);
             Console.Clear();
             tree.Display();

@@ -54,7 +54,8 @@ namespace BUAFC_UI
             Conversion.Initialize();
 
             //Populate Tree Views
-            RefreshTreeView(); 
+            //RefreshTreeView();
+            GenerateTreeView(TV_FROM, PrimaryDirectoryPath);
 
             //Link Checking ListBox
             LB_CHECK.ItemsSource = TruncatedFiles;
@@ -129,6 +130,7 @@ namespace BUAFC_UI
             }
         }
 
+
         private void Audio_File_Selection_State_Changed(object sender, PropertyChangedEventArgs e)
         {
             TreeViewModel item = sender as TreeViewModel;
@@ -150,15 +152,6 @@ namespace BUAFC_UI
             RefreshTruncatedList();
             LB_CHECK.Items.Refresh();
                
-        }
-
-        private void RefreshTruncatedList()
-        {
-            TruncatedFiles.Clear();
-
-            foreach (var path in SelectedFiles)
-                TruncatedFiles.Add(UI_LIB.TruncatePathToDirectory(path, numberDirectoriesToTruncate));
-
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -217,10 +210,27 @@ namespace BUAFC_UI
 
         #region ProcessingFunctions
 
+        private void RefreshTruncatedList()
+        {
+            TruncatedFiles.Clear();
+
+            foreach (var path in SelectedFiles)
+                TruncatedFiles.Add(UI_LIB.TruncatePathToDirectory(path, numberDirectoriesToTruncate));
+
+        }
+
+
+        /// <summary>
+        /// Intensive For Large Libraries, only used when neccasarry
+        /// Or as intended by user.
+        /// </summary>
         public void RefreshTreeView()
         {
             TV_FROM.Items.Clear();
-            GenerateTreeView(TV_FROM, PrimaryDirectoryPath);
+            
+            //Loading Notification!
+
+            FolderTreeViewManager.Initialize(TV_FROM, PrimaryDirectoryPath, Audio_File_Selection_State_Changed);
         }
 
         private void PopulateItemCollectionFromIEnurmable<T>(ItemCollection items, IEnumerable<T> list)
@@ -229,7 +239,36 @@ namespace BUAFC_UI
                 items.Add(item);
         }
 
-        private void GenerateTreeView(TreeView treeView, string path)
+        private void AttempConversion()
+        {
+            //tmep code that converts a single file
+            ////Grab Target File Path - Eloquent C-Style Casting *caughs*
+            //string fileToConvert = ((String)((TreeViewItem)TV_FROM.SelectedItem).Tag);
+            //
+            //string[] temp = new string[1];
+            //temp[0] = fileToConvert;
+
+            //Deep Copy Selected Items So User Can Manipulate List Still
+            List<string> targetedFiles = new List<string>(SelectedFiles);
+
+            //Start Up The Progress Reporting Dialog
+            ProgressDialog progressDialog = new ProgressDialog();
+            progressDialog.Maximum = targetedFiles.Count;
+            progressDialog.Show();
+
+            //Generate string for destination file type
+            string dest = (string)CMBB_TO.SelectedValue;
+
+            //Start A Thread On Conversions
+            Thread thread = new Thread(() => Conversion.RunConversions(targetedFiles, dest, progressDialog.UpdateFields, deleteOriginals));
+
+            thread.Start();
+            //Thread thread = new Thread(() => Conversion.RunConversions(temp, (string)CMBB_TO.SelectedValue, progressDialog.Progress));
+            //
+            //thread.Start();
+        }
+
+        private  void GenerateTreeView(TreeView treeView, string path)
         {
             //Iterates all primary sub-directories of given path
             foreach (string folder in Directory.EnumerateDirectories(path))
@@ -271,7 +310,7 @@ namespace BUAFC_UI
             }
         }
 
-        private void FillTreeView(TreeViewModel parentItem, string path)
+        private  void FillTreeView(CheckBoxTreeView.TreeViewModel parentItem, string path)
         {
             foreach (string str in Directory.EnumerateDirectories(path))
             {
@@ -301,7 +340,7 @@ namespace BUAFC_UI
                     item_file.Tag = file;
 
                     item_file.PropertyChanged += Audio_File_Selection_State_Changed;
-                    
+
                     item.Children.Add(item_file);
                 }
 
@@ -328,35 +367,6 @@ namespace BUAFC_UI
                 item_file.Initialize();
             }
 
-        }
-
-        private void AttempConversion()
-        {
-            //tmep code that converts a single file
-            ////Grab Target File Path - Eloquent C-Style Casting *caughs*
-            //string fileToConvert = ((String)((TreeViewItem)TV_FROM.SelectedItem).Tag);
-            //
-            //string[] temp = new string[1];
-            //temp[0] = fileToConvert;
-
-            //Deep Copy Selected Items So User Can Manipulate List Still
-            List<string> targetedFiles = new List<string>(SelectedFiles);
-
-            //Start Up The Progress Reporting Dialog
-            ProgressDialog progressDialog = new ProgressDialog();
-            progressDialog.Maximum = targetedFiles.Count;
-            progressDialog.Show();
-
-            //Generate string for destination file type
-            string dest = (string)CMBB_TO.SelectedValue;
-
-            //Start A Thread On Conversions
-            Thread thread = new Thread(() => Conversion.RunConversions(targetedFiles, dest, progressDialog.UpdateFields, deleteOriginals));
-
-            thread.Start();
-            //Thread thread = new Thread(() => Conversion.RunConversions(temp, (string)CMBB_TO.SelectedValue, progressDialog.Progress));
-            //
-            //thread.Start();
         }
 
 

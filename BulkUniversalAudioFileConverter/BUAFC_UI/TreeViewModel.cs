@@ -29,7 +29,7 @@ namespace CheckBoxTreeView
 
 
         bool? _isChecked = false;
-        TreeViewModel _parent;
+        public TreeViewModel Parent;
         
         #region IsChecked
 
@@ -47,7 +47,7 @@ namespace CheckBoxTreeView
 
             if (updateChildren && _isChecked.HasValue) Children.ForEach(c => c.SetIsChecked(_isChecked, true, false));
 
-            if (updateParent && _parent != null) _parent.VerifyCheckedState();
+            if (updateParent && Parent != null) Parent.VerifyCheckedState();
 
             NotifyPropertyChanged("IsChecked");
         }
@@ -81,7 +81,7 @@ namespace CheckBoxTreeView
         {
             foreach (TreeViewModel child in Children)
             {
-                child._parent = this;
+                child.Parent = this;
                 child.Initialize();
             }
         }

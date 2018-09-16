@@ -106,5 +106,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BUAFC_UI\BUAFC_UI.csproj">
+      <Project>{6678B4DD-E3BB-41A5-A9F9-02648F7A930D}</Project>
+      <Name>BUAFC_UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
