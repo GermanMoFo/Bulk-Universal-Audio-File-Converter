@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\App.xaml
-41730561609
+5808355705
 
-151138568447
+16-572432313
 80-1374547187
-AdvancedOptionsWindow.xaml;MainWindow.xaml;MessageWindow.xaml;ProgressDialog.xaml;
+AdvancedOptionsWindow.xaml;LoadingAnimation.xaml;MainWindow.xaml;MessageWindow.xaml;ProgressDialog.xaml;
 
-True
+False
 

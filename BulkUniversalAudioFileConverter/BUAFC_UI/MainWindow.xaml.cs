@@ -54,8 +54,8 @@ namespace BUAFC_UI
             Conversion.Initialize();
 
             //Populate Tree Views
-            //RefreshTreeView();
-            GenerateTreeView(TV_FROM, PrimaryDirectoryPath);
+            RefreshTreeView();
+            
 
             //Link Checking ListBox
             LB_CHECK.ItemsSource = TruncatedFiles;
@@ -129,7 +129,6 @@ namespace BUAFC_UI
                 messageWindow.Show();
             }
         }
-
 
         private void Audio_File_Selection_State_Changed(object sender, PropertyChangedEventArgs e)
         {
@@ -226,12 +225,48 @@ namespace BUAFC_UI
         /// </summary>
         public void RefreshTreeView()
         {
-            TV_FROM.Items.Clear();
-            
-            //Loading Notification!
+            //Destroy Old ItemSource
+            TV_FROM.ItemsSource = null;
 
-            FolderTreeViewManager.Initialize(TV_FROM, PrimaryDirectoryPath, Audio_File_Selection_State_Changed);
+            //Cache All Selected Files So We Can Re-Determine What Was Selected
+            var oldSelectedList = SelectedFiles;
+
+            //Clear Selected Files
+            SelectedFiles = new List<string>();
+            RefreshTruncatedList();
+            LB_CHECK.Items.Refresh();
+
+            //Loading Notification Show
+            UserControl loadAnimation = LD_FROM as UserControl;
+            loadAnimation.Visibility = Visibility.Visible;
+
+            //Generate New ItemSource 
+            Thread thread = new Thread(() =>
+                FolderTreeViewManager.Initialize(
+                    TV_FROM,
+                    PrimaryDirectoryPath,
+                    Audio_File_Selection_State_Changed, new Action(() => { loadAnimation.Visibility = Visibility.Hidden; TransferSelection(oldSelectedList); })
+                )
+            );
+            thread.Start();
+            
+            //Stored For Action Simplification With Callback
+            void TransferSelection(List<string> old)
+            {
+                //Itterate New ItemSource and "Select" files whose path used to be selected
+                foreach (var pair in FolderTreeViewManager.NodeList)
+                {
+                    if (oldSelectedList.Contains(pair.a))
+                        pair.b.IsChecked = true;
+                }
+
+                RefreshTruncatedList();
+                TV_FROM.Items.Refresh();
+            }
+
         }
+
+        
 
         private void PopulateItemCollectionFromIEnurmable<T>(ItemCollection items, IEnumerable<T> list)
         {
@@ -268,108 +303,6 @@ namespace BUAFC_UI
             //thread.Start();
         }
 
-        private  void GenerateTreeView(TreeView treeView, string path)
-        {
-            //Iterates all primary sub-directories of given path
-            foreach (string folder in Directory.EnumerateDirectories(path))
-            {
-                //Generate Tree View Node For Each Directory
-                TreeViewModel primaryDirectory = new TreeViewModel();
-                primaryDirectory.Name = folder.Substring(folder.LastIndexOf('\\') + 1);
-                primaryDirectory.Tag = folder;
-
-                //Generate the folders Sub-Directory Nodes
-                FillTreeView(primaryDirectory, folder);
-
-                //Initialize Node
-                primaryDirectory.Initialize();
-
-                //Add the node to the tree
-                treeView.Items.Add(primaryDirectory);
-            }
-
-            //Catalog All Files As Check Boxes
-            foreach (string file in Directory.EnumerateFiles(path))
-            {
-                FileInfo fi = new FileInfo(file);
-
-                //Check to ensure the file type is an acceptable one
-                if (ExtensionUniformer.UnifyExtension(fi.Extension) == null)
-                    continue;
-
-                TreeViewModel item_file = new TreeViewModel();
-
-                item_file.Name = fi.Name;
-                item_file.Tag = file;
-
-                item_file.PropertyChanged += Audio_File_Selection_State_Changed;
-
-                treeView.Items.Add(item_file);
-
-                item_file.Initialize();
-            }
-        }
-
-        private  void FillTreeView(CheckBoxTreeView.TreeViewModel parentItem, string path)
-        {
-            foreach (string str in Directory.EnumerateDirectories(path))
-            {
-                //Generate Tree View Node For Each Directory
-                TreeViewModel item = new TreeViewModel();
-                item.Name = str.Substring(str.LastIndexOf('\\') + 1);
-                item.Tag = str;
-
-                //Add node to parent's descendants
-                parentItem.Children.Add(item);
-
-                //Recurse to find additional sub-directories
-                FillTreeView(item, str);
-
-                //Catalog All Files As Check Boxes
-                foreach (string file in Directory.EnumerateFiles(str))
-                {
-                    FileInfo fi = new FileInfo(file);
-
-                    //Check to ensure the file type is an acceptable one
-                    if (ExtensionUniformer.UnifyExtension(fi.Extension) == null)
-                        continue;
-
-                    TreeViewModel item_file = new TreeViewModel();
-
-                    item_file.Name = fi.Name;
-                    item_file.Tag = file;
-
-                    item_file.PropertyChanged += Audio_File_Selection_State_Changed;
-
-                    item.Children.Add(item_file);
-                }
-
-            }
-
-            //Catalog All Files As Check Boxes
-            foreach (string file in Directory.EnumerateFiles(path))
-            {
-                FileInfo fi = new FileInfo(file);
-
-                //Check to ensure the file type is an acceptable one
-                if (ExtensionUniformer.UnifyExtension(fi.Extension) == null)
-                    continue;
-
-                TreeViewModel item_file = new TreeViewModel();
-
-                item_file.Name = fi.Name;
-                item_file.Tag = file;
-
-                item_file.PropertyChanged += Audio_File_Selection_State_Changed;
-
-                parentItem.Children.Add(item_file);
-
-                item_file.Initialize();
-            }
-
-        }
-
-
         #endregion
 
 
@@ -377,6 +310,26 @@ namespace BUAFC_UI
         private void CMBB_TO_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void TXTB_PRIMARYDIRECTORY_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && sender is TextBox)
+            {
+                string temp;
+                var text = sender as TextBox;
+
+                try
+                {
+                    temp = System.IO.Path.GetFullPath(text.Text);
+                    PrimaryDirectoryPath = temp;
+                    RefreshTreeView();
+                }
+                catch (ArgumentException ae)
+                {
+
+                }
+            }
         }
     }
 }

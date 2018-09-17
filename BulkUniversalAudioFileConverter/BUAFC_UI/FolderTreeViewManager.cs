@@ -23,6 +23,16 @@ namespace BUAFC_UI
         static System.ComponentModel.PropertyChangedEventHandler CheckBoxChanged;
         static FileSystemWatcher Watcher;
 
+        static DoubleAssociativeList<string, TreeViewModel> nodeList = new DoubleAssociativeList<string, TreeViewModel>();
+
+        public static DoubleAssociativeList<string, TreeViewModel> NodeList
+        {
+            get
+            {
+                return nodeList;
+            }
+        }
+
 
         /// <summary>
         /// Sets the watcher library to use passed directory, fills in the tree view
@@ -32,19 +42,26 @@ namespace BUAFC_UI
         /// <param name="tree"></param>
         /// <param name="baseDirectory"></param>
         /// <param name="checkBoxChanged"></param>
-        public static void Initialize(TreeView tree, string baseDirectory, System.ComponentModel.PropertyChangedEventHandler checkBoxChanged)
+        public static void Initialize(TreeView tree, string baseDirectory, System.ComponentModel.PropertyChangedEventHandler checkBoxChanged, Action notifyFinished)
         {
             Tree = tree;
             BaseDirectory = baseDirectory;
             CheckBoxChanged = checkBoxChanged;
 
             GenerateTreeView(Tree, BaseDirectory);
+
+            InitializeFileSystemWatcher(BaseDirectory, Watcher);
+            
+            Application.Current.Dispatcher.Invoke(notifyFinished, null);
         }
 
         #region View Generation
 
         private static void GenerateTreeView(TreeView treeView, string path)
         {
+            //Create A Temporary Item List
+            List<TreeViewModel> items = new List<TreeViewModel>();
+
             //Iterates all primary sub-directories of given path
             foreach (string folder in Directory.EnumerateDirectories(path))
             {
@@ -53,6 +70,9 @@ namespace BUAFC_UI
                 primaryDirectory.Name = folder.Substring(folder.LastIndexOf('\\') + 1);
                 primaryDirectory.Tag = folder;
 
+                //Track Node  By Adding It List
+                nodeList.Add(folder, primaryDirectory);
+
                 //Generate the folders Sub-Directory Nodes
                 FillTreeView(primaryDirectory, folder);
 
@@ -60,32 +80,16 @@ namespace BUAFC_UI
                 primaryDirectory.Initialize();
 
                 //Add the node to the tree
-                treeView.Items.Add(primaryDirectory);
+                //Application.Current.Dispatcher.Invoke(new Action(() => { treeView.Items.Add(primaryDirectory); }), null);
+                items.Add(primaryDirectory);
+                
             }
 
-            //Catalog All Files As Check Boxes
-            foreach (string file in Directory.EnumerateFiles(path))
-            {
-                FileInfo fi = new FileInfo(file);
-
-                //Check to ensure the file type is an acceptable one
-                if (ExtensionUniformer.UnifyExtension(fi.Extension) == null)
-                    continue;
-
-                TreeViewModel item_file = new TreeViewModel();
-
-                item_file.Name = fi.Name;
-                item_file.Tag = file;
-
-                item_file.PropertyChanged += CheckBoxChanged;
-
-                treeView.Items.Add(item_file);
-
-                item_file.Initialize();
-            }
+            //Assign The Original Collection To The New One
+            Application.Current.Dispatcher.Invoke(new Action(() => { treeView.ItemsSource = items; }), null);
         }
 
-        private static void FillTreeView(CheckBoxTreeView.TreeViewModel parentItem, string path)
+        private static void FillTreeView(TreeViewModel parentItem, string path)
         {
             foreach (string str in Directory.EnumerateDirectories(path))
             {
@@ -94,30 +98,14 @@ namespace BUAFC_UI
                 item.Name = str.Substring(str.LastIndexOf('\\') + 1);
                 item.Tag = str;
 
+                //Track Node  By Adding It List
+                nodeList.Add(str, item);
+
                 //Add node to parent's descendants
                 parentItem.Children.Add(item);
 
                 //Recurse to find additional sub-directories
                 FillTreeView(item, str);
-
-                //Catalog All Files As Check Boxes
-                foreach (string file in Directory.EnumerateFiles(str))
-                {
-                    FileInfo fi = new FileInfo(file);
-
-                    //Check to ensure the file type is an acceptable one
-                    if (ExtensionUniformer.UnifyExtension(fi.Extension) == null)
-                        continue;
-
-                    TreeViewModel item_file = new TreeViewModel();
-
-                    item_file.Name = fi.Name;
-                    item_file.Tag = file;
-
-                    item_file.PropertyChanged += CheckBoxChanged;
-
-                    item.Children.Add(item_file);
-                }
 
             }
 
@@ -125,19 +113,22 @@ namespace BUAFC_UI
             foreach (string file in Directory.EnumerateFiles(path))
             {
                 FileInfo fi = new FileInfo(file);
-
+            
                 //Check to ensure the file type is an acceptable one
                 if (ExtensionUniformer.UnifyExtension(fi.Extension) == null)
                     continue;
-
+            
                 TreeViewModel item_file = new TreeViewModel();
-
+            
                 item_file.Name = fi.Name;
                 item_file.Tag = file;
-
+            
                 item_file.PropertyChanged += CheckBoxChanged;
-
+            
                 parentItem.Children.Add(item_file);
+
+                //Track Node  By Adding It List
+                nodeList.Add(file, item_file);
 
                 item_file.Initialize();
             }
@@ -165,7 +156,17 @@ namespace BUAFC_UI
 
         private static void watcher_renamed(object sender, RenamedEventArgs e)
         {
-            FindModelFromPath(e.OldFullPath, Tree).Tag = e.FullPath;
+            //Find Corresponding Tree Node
+            TreeViewModel model = nodeList[e.OldFullPath];
+
+            //Update Meta-Data
+            model.Tag = e.FullPath;
+
+            //Update Display Name
+            model.Name = Path.GetFileName(e.FullPath);
+
+            //Refresh Items So It Reflects Change
+            Application.Current.Dispatcher.Invoke(new Action(() => { Tree.Items.Refresh(); }), null);
         }
 
         private static void watcher_created(object sender, FileSystemEventArgs e)
@@ -189,7 +190,7 @@ namespace BUAFC_UI
             //--------------------------------//
 
             //Find the FolderTreeViewModel for which the sent entry exists in
-            TreeViewModel dir = FindModelFromPath(e.FullPath.Remove(e.FullPath.LastIndexOf('\\')), Tree);
+            TreeViewModel dir = nodeList[e.FullPath.Remove(e.FullPath.LastIndexOf('\\'))];
 
             //Create A New FolderTreeViewModel to represent the sent entry
             TreeViewModel entry = new TreeViewModel();
@@ -211,6 +212,9 @@ namespace BUAFC_UI
 
             //Initialize this node by assigning its parent.
             entry.Parent = dir;
+
+            //Refresh Items So It Reflects Change
+            Application.Current.Dispatcher.Invoke(new Action(() => { Tree.Items.Refresh(); }), null);
         }
 
         private static void watcher_deleted(object sender, FileSystemEventArgs e)
@@ -226,60 +230,16 @@ namespace BUAFC_UI
             //--------------------------------//
 
             //Find the FolderTreeViewModel for which the sent entry exists in
-            TreeViewModel dir = FindModelFromPath(e.FullPath.Remove(e.FullPath.LastIndexOf('\\')), Tree);
+            TreeViewModel dir = nodeList[e.FullPath.Remove(e.FullPath.LastIndexOf('\\'))];
 
             //Find the FolderTreeViewModel for the sent entry
-            TreeViewModel deleted = FindModelFromPath(e.FullPath, Tree);
+            TreeViewModel deleted = nodeList[e.FullPath];
 
             //Remove the deleted node from the children of its directory
             dir.Children.Remove(deleted);
-        }
 
-        /// <summary>
-        /// Navigates to a FolderTreeViewModel within the given TreeView and returns a reference
-        /// </summary>
-        /// <param name="path">The path location of the target file</param>
-        /// <param name="tree">The tree through which to search</param>
-        /// <returns></returns>
-        private static TreeViewModel FindModelFromPath(string path, TreeView tree)
-        {
-            TreeViewModel temp1, temp2;
-
-            foreach (TreeViewModel model in tree.Items)
-            {
-                if (model.Tag == path)
-                    return model;
-
-                if (model.Children != null)
-                {
-                    temp1 = RecursiveSearch(model);
-
-                    if (temp1 != null)
-                        return temp1;
-                }
-            }
-
-            throw new ArgumentException("Path: " + path + " Was Not Found");
-
-            TreeViewModel RecursiveSearch(TreeViewModel model)
-            {
-                foreach (TreeViewModel child in model.Children)
-                {
-                    if (child.Tag == path)
-                        return child;
-
-                    if (model.Children != null)
-                    {
-                        temp2 = RecursiveSearch(child);
-
-                        if (temp2 != null)
-                            return temp2;
-                    }
-
-                }
-
-                return null;
-            }
+            //Refresh Items So It Reflects Change
+            Application.Current.Dispatcher.Invoke(new Action(() => { Tree.Items.Refresh(); }), null);
         }
 
         #endregion

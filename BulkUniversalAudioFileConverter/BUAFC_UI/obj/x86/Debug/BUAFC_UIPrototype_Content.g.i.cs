@@ -8,15 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.min.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.mobile.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.mobile.min.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.mobile.old.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.mobile.shim.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.modern.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.modern.min.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.modern.shim.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/avalon.shim.js")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("untitled-1.ico")]
 
 

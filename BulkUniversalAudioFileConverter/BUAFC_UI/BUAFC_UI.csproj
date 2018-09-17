@@ -73,6 +73,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Untitled-1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonLibrary">
       <HintPath>..\DLLS\Avalon\AvalonLibrary.dll</HintPath>
@@ -137,6 +140,9 @@
       <DependentUpon>AdvancedOptionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FolderTreeViewManager.cs" />
+    <Compile Include="LoadingAnimation.xaml.cs">
+      <DependentUpon>LoadingAnimation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
@@ -146,6 +152,10 @@
     <Compile Include="TreeViewModel.cs" />
     <Compile Include="UI_LIB.cs" />
     <Page Include="AdvancedOptionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoadingAnimation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +212,12 @@
       <Project>{60325bc4-ac67-44d4-b22d-0c7c1e5b3c38}</Project>
       <Name>BUAFC_Library</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="BUAFC Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Untitled-1.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
