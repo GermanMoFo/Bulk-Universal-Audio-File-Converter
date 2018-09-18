@@ -40,3 +40,14 @@ C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFi
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\obj\x86\Debug\BUAFC_Debug.csprojResolveAssemblyReference.cache
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\obj\x86\Debug\BUAFC_Debug.exe
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\obj\x86\Debug\BUAFC_Debug.pdb
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\libmp3lame.32.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\libmp3lame.64.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\BUAFC_UIPrototype.exe
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\BUAFC_Library.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\AvalonLibrary.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\NAudio.Flac.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\NAudio.Lame.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\BUAFC_UIPrototype.pdb
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\BUAFC_UIPrototype.exe.config
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Debug\bin\x86\Debug\BUAFC_Library.pdb

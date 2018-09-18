@@ -149,6 +149,13 @@
             </summary>
             <param name = "items">The items.</param>
         </member>
+        <member name="M:Caliburn.Micro.BindableCollection`1.OnUIThread(System.Action)">
+            <summary>
+            Executes the given action on the UI thread
+            </summary>
+            <remarks>An extension point for subclasses to customise how property change notifications are handled.</remarks>
+            <param name="action"></param>
+        </member>
         <member name="T:Caliburn.Micro.Conductor`1">
             <summary>
             An implementation of <see cref="T:Caliburn.Micro.IConductor"/> that holds on to and activates only one item at a time.
@@ -200,7 +207,7 @@
         </member>
         <member name="T:Caliburn.Micro.Conductor`1.Collection.AllActive">
             <summary>
-            An implementation of <see cref="T:Caliburn.Micro.IConductor"/> that holds on to many items wich are all activated.
+            An implementation of <see cref="T:Caliburn.Micro.IConductor"/> that holds on to many items which are all activated.
             </summary>
         </member>
         <member name="M:Caliburn.Micro.Conductor`1.Collection.AllActive.#ctor(System.Boolean)">
@@ -495,6 +502,23 @@
             <typeparam name="TService">The type to resolve.</typeparam>
             <param name="container">The container.</param>
             <returns>The resolved instances.</returns>
+        </member>
+        <member name="M:Caliburn.Micro.ContainerExtensions.HasHandler``1(Caliburn.Micro.SimpleContainer,System.String)">
+            <summary>
+            Determines if a handler for the service/key has previously been registered.
+            </summary>
+            <typeparam name="TService">The service type.</typeparam>
+            <param name="container">The container.</param>
+            <param name="key">The key.</param>
+            <returns>True if a handler is registere; false otherwise.</returns>
+        </member>
+        <member name="M:Caliburn.Micro.ContainerExtensions.UnregisterHandler``1(Caliburn.Micro.SimpleContainer,System.String)">
+            <summary>
+              Unregisters any handlers for the service/key that have previously been registered.
+            </summary>
+            <typeparam name="TService">The service type.</typeparam>
+            <param name="container">The container.</param>
+            <param name = "key">The key.</param>
         </member>
         <member name="T:Caliburn.Micro.ContinueResultDecorator">
             <summary>
@@ -1428,6 +1452,23 @@
             Raises the <see cref="E:Caliburn.Micro.PropertyChangedBase.PropertyChanged" /> event directly.
             </summary>
             <param name="e">The <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Caliburn.Micro.PropertyChangedBase.OnUIThread(System.Action)">
+            <summary>
+            Executes the given action on the UI thread
+            </summary>
+            <remarks>An extension point for subclasses to customise how property change notifications are handled.</remarks>
+            <param name="action"></param>
+        </member>
+        <member name="M:Caliburn.Micro.PropertyChangedBase.Set``1(``0@,``0,System.String)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="oldValue"></param>
+            <param name="newValue"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
         </member>
         <member name="T:Caliburn.Micro.PortableReflectionExtensions">
             <summary>

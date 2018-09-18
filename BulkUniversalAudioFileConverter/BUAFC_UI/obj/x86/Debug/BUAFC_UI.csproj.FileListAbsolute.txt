@@ -124,3 +124,8 @@ C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFi
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\BUAFC_UI.csproj.CoreCompileInputs.cache
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\BUAFC_UIPrototype.exe
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\BUAFC_UIPrototype.pdb
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\LoadingAnimation.baml
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\LoadingAnimation.g.cs
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\x86\Debug\ControlzEx.dll
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\x86\Debug\ControlzEx.pdb

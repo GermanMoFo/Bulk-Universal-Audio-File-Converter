@@ -12,7 +12,6 @@ C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudi
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\x86\Debug\NAudio.xml
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\x86\Debug\NAudio.Vorbis.xml
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\bin\x86\Debug\NVorbis.xml
-C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\x86\Debug\BUAFC_Library.csprojAssemblyReference.cache
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\x86\Debug\BUAFC_Library.csproj.CoreCompileInputs.cache
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\x86\Debug\BUAFC_Library.csproj.CopyComplete
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\x86\Debug\BUAFC_Library.dll
@@ -35,3 +34,4 @@ C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFi
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\x86\Debug\BUAFC_Library.dll
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\x86\Debug\BUAFC_Library.pdb
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\x86\Debug\BUAFC_Library.csprojResolveAssemblyReference.cache
+C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_Library\obj\x86\Debug\BUAFC_Library.csprojAssemblyReference.cache

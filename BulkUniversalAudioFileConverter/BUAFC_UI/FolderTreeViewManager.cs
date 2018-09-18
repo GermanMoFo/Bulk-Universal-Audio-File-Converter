@@ -200,6 +200,7 @@ namespace BUAFC_UI
             {
                 //Is A File
                 entry.Name = Path.GetFileName(e.FullPath);
+                entry.Tag = e.FullPath;
             }
             else
             {
@@ -212,6 +213,9 @@ namespace BUAFC_UI
 
             //Initialize this node by assigning its parent.
             entry.Parent = dir;
+
+            //Add Event Handler Callback
+            entry.PropertyChanged += CheckBoxChanged;
 
             //Refresh Items So It Reflects Change
             Application.Current.Dispatcher.Invoke(new Action(() => { Tree.Items.Refresh(); }), null);

@@ -20,15 +20,19 @@ namespace BUAFC_Library
     public static class Conversion
     {
         private static int OGG_SAMPLESIZE = 1024;
-        private static int BITRATE = 192000;
+        private static int _BITRATE = 192000;
 
         private static string workingDirectory = Path.GetTempPath();
 
-        public enum PathMode {InPlace, DirectoryDump};
+        public enum PathMode {InPlace, DirectoryDump, SmartDump};
         private static PathMode pathMode = PathMode.InPlace;
 
         private static readonly String[] extensions = { ".mp3", ".wav", ".wma", ".aac", ".ogg" };
         public static readonly List<String> SupportedExtensions = new List<String>(extensions);
+
+        public static int OGG_SAMPLESIZE1 { get => OGG_SAMPLESIZE; set => OGG_SAMPLESIZE = value; }
+        public static int BitRate { get => _BITRATE; set => _BITRATE = value; }
+        public static string UserDesignatedDirectory { get; set; }
 
         #region Extension-To-Conversion Method Association
 
@@ -61,9 +65,6 @@ namespace BUAFC_Library
         }
 
         private static Dictionary<string, Extension_WavConversionPair> ConversionDict = new Dictionary<string, Extension_WavConversionPair>();
-
-        public static int OGG_SAMPLESIZE1 { get => OGG_SAMPLESIZE; set => OGG_SAMPLESIZE = value; }
-        public static int BITRATE1 { get => BITRATE; set => BITRATE = value; }
 
         private static void InitConversionDictionary()
         {
@@ -260,7 +261,7 @@ namespace BUAFC_Library
         public static void Wav_To_MP3(string waveFile, string mp3File)
         {
             using (var reader = new AudioFileReader(waveFile))
-            using (var writer = new LameMP3FileWriter(mp3File, reader.WaveFormat, BITRATE1 / 1000))
+            using (var writer = new LameMP3FileWriter(mp3File, reader.WaveFormat, BitRate / 1000))
                 reader.CopyTo(writer);
         }
 
@@ -278,13 +279,13 @@ namespace BUAFC_Library
         public static void Wav_To_WMA(string waveFile, string wmaFile)
         {
             using (var reader = new AudioFileReader(waveFile))
-                MediaFoundationEncoder.EncodeToWma(reader, wmaFile, BITRATE1);
+                MediaFoundationEncoder.EncodeToWma(reader, wmaFile, BitRate);
         }
 
         public static void Wav_To_AAC(string waveFile, string aacFile)
         {
             using (var reader = new AudioFileReader(waveFile))
-                MediaFoundationEncoder.EncodeToAac(reader, aacFile, BITRATE1);
+                MediaFoundationEncoder.EncodeToAac(reader, aacFile, BitRate);
         }
 
         public static void Wav_To_Ogg(string wavFile, string oggFile)

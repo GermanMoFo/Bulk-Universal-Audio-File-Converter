@@ -353,6 +353,12 @@
             <returns>Named <see cref="T:System.Windows.FrameworkElement"/> instances in the provided scope.</returns>
             <remarks>Pass in a <see cref="T:System.Windows.DependencyObject"/> and receive a list of named <see cref="T:System.Windows.FrameworkElement"/> instances in the same scope.</remarks>
         </member>
+        <member name="F:Caliburn.Micro.BindingScope.GetVisualParent">
+            <summary>
+            Gets the parent of the given object in the Visual Tree.
+            </summary>
+            <returns>The parent of the given object in the Visual Tree</returns>
+        </member>
         <member name="F:Caliburn.Micro.BindingScope.FindNamedDescendants">
             <summary>
             Finds a set of named <see cref="T:System.Windows.FrameworkElement"/> instances in each hop in a <see cref="T:Caliburn.Micro.BindingScope.ScopeNamingRoute"/>.
@@ -890,6 +896,243 @@
             Called when an item is removed from the collection.
             </summary>
             <param name="item">The item that was removed.</param>
+        </member>
+        <member name="T:Caliburn.Micro.INavigationService">
+            <summary>
+              Implemented by services that provide <see cref="T:System.Uri" /> based navigation.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.INavigationService.NavigateToViewModel(System.Type,System.Object)">
+            <summary>
+            Navigates to the view represented by the given view model.
+            </summary>
+            <param name="viewModel">The view model to navigate to.</param>
+            <param name="extraData">Extra data to populate the view model with.</param>
+        </member>
+        <member name="M:Caliburn.Micro.INavigationService.NavigateToViewModel``1(System.Object)">
+            <summary>
+            Navigates to the view represented by the given view model.
+            </summary>
+            <typeparam name="TViewModel">The view model to navigate to.</typeparam>
+            <param name="extraData">Extra data to populate the view model with.</param>
+        </member>
+        <member name="P:Caliburn.Micro.INavigationService.CanGoBack">
+            <summary>
+              Indicates whether the navigator can navigate back.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Micro.INavigationService.CanGoForward">
+            <summary>
+              Indicates whether the navigator can navigate forward.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Micro.INavigationService.CurrentContent">
+            <summary>
+              The current content.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.INavigationService.StopLoading">
+            <summary>
+              Stops the loading process.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.INavigationService.GoBack">
+            <summary>
+              Navigates back.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.INavigationService.GoForward">
+            <summary>
+              Navigates forward.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.INavigationService.RemoveBackEntry">
+            <summary>
+              Removes the most recent entry from the back stack.
+            </summary>
+            <returns> The entry that was removed. </returns>
+        </member>
+        <member name="E:Caliburn.Micro.INavigationService.Navigated">
+            <summary>
+              Raised after navigation.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.INavigationService.Navigating">
+            <summary>
+              Raised prior to navigation.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.INavigationService.NavigationFailed">
+            <summary>
+              Raised when navigation fails.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.INavigationService.NavigationStopped">
+            <summary>
+              Raised when navigation is stopped.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.INavigationService.FragmentNavigation">
+            <summary>
+              Raised when a fragment navigation occurs.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.FrameAdapter">
+            <summary>
+              A basic implementation of <see cref="T:Caliburn.Micro.INavigationService" /> designed to adapt the <see cref="T:System.Windows.Controls.Frame" /> control.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.#ctor(System.Windows.Controls.Frame,System.Boolean)">
+            <summary>
+              Creates an instance of <see cref="T:Caliburn.Micro.FrameAdapter" />
+            </summary>
+            <param name="frame"> The frame to represent as a <see cref="T:Caliburn.Micro.INavigationService" /> . </param>
+            <param name="treatViewAsLoaded"> Tells the frame adapter to assume that the view has already been loaded by the time OnNavigated is called. This is necessary when using the TransitionFrame. </param>
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.OnNavigating(System.Object,System.Windows.Navigation.NavigatingCancelEventArgs)">
+            <summary>
+              Occurs before navigation
+            </summary>
+            <param name="sender"> The event sender. </param>
+            <param name="e"> The event args. </param>
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.CanCloseOnNavigating(System.Object,System.Windows.Navigation.NavigatingCancelEventArgs)">
+            <summary>
+            Called to check whether or not to close current instance on navigating.
+            </summary>
+            <param name="sender"> The event sender from OnNavigating event. </param>
+            <param name="e"> The event args from OnNavigating event. </param>
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.OnNavigated(System.Object,System.Windows.Navigation.NavigationEventArgs)">
+            <summary>
+              Occurs after navigation
+            </summary>
+            <param name="sender"> The event sender. </param>
+            <param name="e"> The event args. </param>
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.TryInjectParameters(System.Object,System.Object)">
+            <summary>
+              Attempts to inject query string parameters from the view into the view model.
+            </summary>
+            <param name="viewModel"> The view model.</param>
+            <param name="parameter"> The parameter.</param>
+        </member>
+        <member name="P:Caliburn.Micro.FrameAdapter.Source">
+            <summary>
+              The <see cref="T:System.Uri" /> source.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Micro.FrameAdapter.CanGoBack">
+            <summary>
+              Indicates whether the navigator can navigate back.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Micro.FrameAdapter.CanGoForward">
+            <summary>
+              Indicates whether the navigator can navigate forward.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Micro.FrameAdapter.CurrentSource">
+            <summary>
+              The current <see cref="T:System.Uri" /> source.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Micro.FrameAdapter.CurrentContent">
+            <summary>
+              The current content.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.StopLoading">
+            <summary>
+              Stops the loading process.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.GoBack">
+            <summary>
+              Navigates back.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.GoForward">
+            <summary>
+              Navigates forward.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.NavigateToViewModel(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.NavigateToViewModel``1(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Caliburn.Micro.FrameAdapter.RemoveBackEntry">
+            <summary>
+              Removes the most recent entry from the back stack.
+            </summary>
+            <returns> The entry that was removed. </returns>
+        </member>
+        <member name="E:Caliburn.Micro.FrameAdapter.Navigated">
+            <summary>
+              Raised after navigation.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.FrameAdapter.Navigating">
+            <summary>
+              Raised prior to navigation.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.FrameAdapter.NavigationFailed">
+            <summary>
+              Raised when navigation fails.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.FrameAdapter.NavigationStopped">
+            <summary>
+              Raised when navigation is stopped.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.FrameAdapter.FragmentNavigation">
+            <summary>
+              Raised when a fragment navigation occurs.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.NavigationExtensions">
+            <summary>
+            Extension methods related to navigation.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.NavigationExtensions.For``1(Caliburn.Micro.INavigationService)">
+            <summary>
+            Creates a Uri builder based on a view model type.
+            </summary>
+            <typeparam name="TViewModel">The type of the view model.</typeparam>
+            <param name="navigationService">The navigation service.</param>
+            <returns>The builder.</returns>
+        </member>
+        <member name="T:Caliburn.Micro.NavigationHelper`1">
+            <summary>
+            Builds a Uri in a strongly typed fashion, based on a ViewModel.
+            </summary>
+            <typeparam name="TViewModel"></typeparam>
+        </member>
+        <member name="M:Caliburn.Micro.NavigationHelper`1.WithParam``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)">
+            <summary>
+            Adds a query string parameter to the Uri.
+            </summary>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <param name="property">The property.</param>
+            <param name="value">The property value.</param>
+            <returns>Itself</returns>
+        </member>
+        <member name="M:Caliburn.Micro.NavigationHelper`1.AttachTo(Caliburn.Micro.INavigationService)">
+            <summary>
+            Attaches a navigation servies to this builder.
+            </summary>
+            <param name="navigationService">The navigation service.</param>
+            <returns>Itself</returns>
+        </member>
+        <member name="M:Caliburn.Micro.NavigationHelper`1.Navigate">
+            <summary>
+            Navigates to the Uri represented by this builder.
+            </summary>
         </member>
         <member name="T:Caliburn.Micro.Parameter">
             <summary>

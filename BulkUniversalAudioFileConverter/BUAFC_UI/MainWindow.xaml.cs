@@ -41,10 +41,6 @@ namespace BUAFC_UI
 
 
             //Input Supported File Types Into Drop Downs
-            CMBB_FROM.Items.Add("ALL...");
-            CMBB_FROM.SelectedIndex = 0;
-            PopulateItemCollectionFromIEnurmable(CMBB_FROM.Items, Conversion.SupportedExtensions);
-            PopulateItemCollectionFromIEnurmable(CMBB_AS.Items,   Conversion.SupportedExtensions);
             PopulateItemCollectionFromIEnurmable(CMBB_TO.Items,   Conversion.SupportedExtensions);
 
             //Generate Extension Unifiers To Accomodate Weird Extensions
@@ -55,13 +51,15 @@ namespace BUAFC_UI
 
             //Populate Tree Views
             RefreshTreeView();
-            
 
             //Link Checking ListBox
             LB_CHECK.ItemsSource = TruncatedFiles;
 
             //Initialize Primary Directory Text
             TXTB_PRIMARYDIRECTORY.Text = PrimaryDirectoryPath;
+
+            //Initialize CheckedComboBox
+            CCB_FROM.ItemsSource = UI_Lists.Extensions;
         }
 
         
@@ -79,23 +77,15 @@ namespace BUAFC_UI
 
             if(radioButton != null)
             {
-                if (radioButton.Name == "RB_CUSTOM")
+                if (radioButton.Name == "RB_ALL")
                 {
-                    if (CMBB_FROM != null)          CMBB_FROM.IsEnabled =           false;
-                    if (TXTBX_RECKOGNIZE != null)   TXTBX_RECKOGNIZE.IsEnabled =    true;
-                    if (LB_RECKOGNIZE != null)      LB_RECKOGNIZE.IsEnabled =       true;
-                    if (LB_AS != null)              LB_AS.IsEnabled =               true;
-                    if (CMBB_AS != null)            CMBB_AS.IsEnabled =             true;
+                    if (CCB_FROM != null)           CCB_FROM.IsEnabled =           false;
 
                 }
 
                 if (radioButton.Name == "RB_STRICT")
                 {
-                    if (CMBB_FROM != null)          CMBB_FROM.IsEnabled =           true;
-                    if (TXTBX_RECKOGNIZE != null)   TXTBX_RECKOGNIZE.IsEnabled =    false;
-                    if (LB_RECKOGNIZE != null)      LB_RECKOGNIZE.IsEnabled =       false;
-                    if (LB_AS != null)              LB_AS.IsEnabled =               false;
-                    if (CMBB_AS != null)            CMBB_AS.IsEnabled =             false;
+                    if (CCB_FROM != null)           CCB_FROM.IsEnabled =           true;
                 }
             }
         }
@@ -105,27 +95,28 @@ namespace BUAFC_UI
 
             //VERIFY ENOUGH OPTIONS ARE SET
             bool check = true;
+            string errorMsg = "You Do Not Have Enough Information Entered.";
+
             //FROM
-            if (RB_STRICT.IsChecked == true && CMBB_FROM.SelectedItem == null)
+            if (RB_STRICT.IsChecked == true && CCB_FROM.SelectedItem == null)
+            {
                 check = false;
-            else if (RB_CUSTOM.IsChecked == true && CMBB_AS.SelectedItem == null)
-                check = false;
+                errorMsg += "\nPlease ensure you have selected either ''All...'' Or ''Filter'',\nif filter is selected please enter a selection";
+            }
 
             //TO
             if (CMBB_TO.SelectedItem == null)
+            {
                 check = false;
+                errorMsg += "\nPlease ensure you have selected a target file type in ''To...''.";
+            }
 
             if (check)
-            {
-                
                 AttempConversion();
-            }
             else
             {
-                MessageWindow messageWindow = new MessageWindow
-                {
-                    Message = "You Do Not Have Enough Information Entered \nOr You Have An Invalid Custom Extension Identifier\n(Must Begin With '.')"
-                };
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.Message = errorMsg;
                 messageWindow.Show();
             }
         }
@@ -218,7 +209,6 @@ namespace BUAFC_UI
 
         }
 
-
         /// <summary>
         /// Intensive For Large Libraries, only used when neccasarry
         /// Or as intended by user.
@@ -266,8 +256,6 @@ namespace BUAFC_UI
 
         }
 
-        
-
         private void PopulateItemCollectionFromIEnurmable<T>(ItemCollection items, IEnumerable<T> list)
         {
             foreach (T item in list)
@@ -276,15 +264,21 @@ namespace BUAFC_UI
 
         private void AttempConversion()
         {
-            //tmep code that converts a single file
-            ////Grab Target File Path - Eloquent C-Style Casting *caughs*
-            //string fileToConvert = ((String)((TreeViewItem)TV_FROM.SelectedItem).Tag);
-            //
-            //string[] temp = new string[1];
-            //temp[0] = fileToConvert;
+            //Deep Copy Selected Items So User Can Manipulate List Still, And Filter Based On User-Desired Extensions
+            List<string> targetedFiles = new List<string>();
 
-            //Deep Copy Selected Items So User Can Manipulate List Still
-            List<string> targetedFiles = new List<string>(SelectedFiles);
+            foreach (var file in SelectedFiles)
+            {
+                if (null != ExtensionUniformer.UnifyExtension(System.IO.Path.GetExtension(file)))
+                {
+                    if ((bool)RB_STRICT.IsChecked)
+                        foreach (string extension in CCB_FROM.SelectedItems)
+                            if (extension == System.IO.Path.GetExtension(file))
+                                targetedFiles.Add(file);
+                }
+                else if ((bool)RB_ALL.IsChecked)
+                    targetedFiles.Add(file);
+            }
 
             //Start Up The Progress Reporting Dialog
             ProgressDialog progressDialog = new ProgressDialog();
@@ -296,11 +290,7 @@ namespace BUAFC_UI
 
             //Start A Thread On Conversions
             Thread thread = new Thread(() => Conversion.RunConversions(targetedFiles, dest, progressDialog.UpdateFields, deleteOriginals));
-
             thread.Start();
-            //Thread thread = new Thread(() => Conversion.RunConversions(temp, (string)CMBB_TO.SelectedValue, progressDialog.Progress));
-            //
-            //thread.Start();
         }
 
         #endregion

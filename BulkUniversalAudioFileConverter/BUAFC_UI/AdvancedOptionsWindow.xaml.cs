@@ -27,7 +27,7 @@ namespace BUAFC_UI
 
         private void IUD_BITRATE_CHANGED(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            Conversion.BITRATE1 = (int)IUD_BITRATE.Value;
+            Conversion.BitRate = (int)IUD_BITRATE.Value;
         }
 
         private void IUD_SAMPLE_CHANGED(object sender, RoutedPropertyChangedEventArgs<object> e)
