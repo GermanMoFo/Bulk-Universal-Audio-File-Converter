@@ -40,8 +40,13 @@ namespace BUAFC_UI
             InitializeComponent();
 
 
+
+
             //Input Supported File Types Into Drop Downs
             PopulateItemCollectionFromIEnurmable(CMBB_TO.Items,   Conversion.SupportedExtensions);
+
+            //Input FilemodeOptions 
+            PopulateItemCollectionFromIEnurmable(CB_DEST.Items, UI_Lists.FilemodeOptions);
 
             //Generate Extension Unifiers To Accomodate Weird Extensions
             UI_LIB.LoadAlternateExtensions();
@@ -49,11 +54,12 @@ namespace BUAFC_UI
             //Generate Conversion Method Library
             Conversion.Initialize();
 
+            //Link Checking ListBox
+            LB_CHECK.Items.Clear();
+            LB_CHECK.ItemsSource = TruncatedFiles;
+
             //Populate Tree Views
             RefreshTreeView();
-
-            //Link Checking ListBox
-            LB_CHECK.ItemsSource = TruncatedFiles;
 
             //Initialize Primary Directory Text
             TXTB_PRIMARYDIRECTORY.Text = PrimaryDirectoryPath;
@@ -196,6 +202,67 @@ namespace BUAFC_UI
             RefreshTreeView();
         }
 
+        private void CB_DEST_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //"In-Place", "Directory Dump", "Smart Dump"
+            //Conversion
+            switch ((String)CB_DEST.SelectedItem)
+            {
+                case "In-Place":
+                    Conversion.PathMode = Conversion.PathModeType.InPlace;
+                    TXT_DEST.IsEnabled = false;
+                    break;
+                case "Directory Dump":
+                    Conversion.PathMode = Conversion.PathModeType.DirectoryDump;
+                    TXT_DEST.IsEnabled = true;
+                    break;
+                case "Smart Dump":
+                    Conversion.PathMode = Conversion.PathModeType.SmartDump;
+                    TXT_DEST.IsEnabled = true;
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        private void TXTB_PRIMARYDIRECTORY_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && sender is TextBox)
+            {
+                string temp;
+                var text = sender as TextBox;
+
+                try
+                {
+                    temp = System.IO.Path.GetFullPath(text.Text);
+                    PrimaryDirectoryPath = temp;
+                    RefreshTreeView();
+                }
+                catch (ArgumentException ae)
+                {
+
+                }
+            }
+        }
+
+        private void TXTB_DEST_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && sender is TextBox)
+            {
+                string temp;
+                var text = sender as TextBox;
+
+                try
+                {
+                    temp = System.IO.Path.GetFullPath(text.Text);
+                    Conversion.UserSpecifiedDirectory = temp;
+                }
+                catch (ArgumentException ae)
+                {
+
+                }
+            }
+        }
         #endregion
 
         #region ProcessingFunctions
@@ -302,24 +369,8 @@ namespace BUAFC_UI
 
         }
 
-        private void TXTB_PRIMARYDIRECTORY_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter && sender is TextBox)
-            {
-                string temp;
-                var text = sender as TextBox;
+        
 
-                try
-                {
-                    temp = System.IO.Path.GetFullPath(text.Text);
-                    PrimaryDirectoryPath = temp;
-                    RefreshTreeView();
-                }
-                catch (ArgumentException ae)
-                {
-
-                }
-            }
-        }
+        
     }
 }

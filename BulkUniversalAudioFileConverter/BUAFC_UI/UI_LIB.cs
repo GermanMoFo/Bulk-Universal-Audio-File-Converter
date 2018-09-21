@@ -8,6 +8,9 @@ namespace BUAFC_UI
     {
         private static readonly String[] extensions = { ".mp3", ".wav", ".wma", ".aac", ".ogg" };
         public static readonly List<String> Extensions = new List<String>(extensions);
+
+        private static readonly String[] filemodeOptions = { "In-Place", "Directory Dump", "Smart Dump" };
+        public static readonly List<String> FilemodeOptions = new List<string>(filemodeOptions);
     }
 
     public static class UI_LIB

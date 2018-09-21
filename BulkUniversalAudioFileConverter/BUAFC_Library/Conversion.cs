@@ -24,15 +24,15 @@ namespace BUAFC_Library
 
         private static string workingDirectory = Path.GetTempPath();
 
-        public enum PathMode {InPlace, DirectoryDump, SmartDump};
-        private static PathMode pathMode = PathMode.InPlace;
+        public enum PathModeType {InPlace, DirectoryDump, SmartDump};
 
         private static readonly String[] extensions = { ".mp3", ".wav", ".wma", ".aac", ".ogg" };
         public static readonly List<String> SupportedExtensions = new List<String>(extensions);
 
         public static int OGG_SAMPLESIZE1 { get => OGG_SAMPLESIZE; set => OGG_SAMPLESIZE = value; }
         public static int BitRate { get => _BITRATE; set => _BITRATE = value; }
-        public static string UserDesignatedDirectory { get; set; }
+        public static PathModeType PathMode { get; set; } = PathModeType.InPlace;
+        public static string UserSpecifiedDirectory { get; set; }
 
         #region Extension-To-Conversion Method Association
 
@@ -96,12 +96,16 @@ namespace BUAFC_Library
         /// </summary>
         public static void RunConversions(IEnumerable<string> targetFiles, string destinationExtension, Update update, bool deleteOriginal)
         {
-            string currentDirectory = "", currentAction = "";
+            string currentDirectory = "", currentAction = "", lowestCommonDirectory = "";
             int progress = 0;
 
-            //All Converisons Point Centrally To WAV
-            //This Means That Files That Start Or End As Wavs Must Be Handled Differently Then Others
+            //If the file mode is Smart Dump, Find The Lowest Common Directory
+            string LCD = "";
+            if(PathMode == PathModeType.SmartDump)
+                LCD = Utitlities.FindCommonPath("\\", targetFiles);
 
+            //All Converisons Point Centrally To WAV
+            //This Means That Files That Start Or End As Wavs Must Be Handled Differently Then Other
             foreach (var file in targetFiles)
             {
                 //Update Status Strings
@@ -112,19 +116,27 @@ namespace BUAFC_Library
                 //Determine The Destination File Path Name Based On PathMode
                 string destination = "";
 
-                switch (pathMode)
+                switch (PathMode)
                 {
-                    case PathMode.InPlace:
+                    case PathModeType.InPlace:
                         //This defines a method wherein the file is left in the directory of the original
                         //Simply drops and changes the extension of the file
                         //This leaves the original and ne in the same directory with the same name
                         //But with differing extensions
                         destination = file.Remove(file.LastIndexOf('.')) + destinationExtension;
                         break;
-                    case PathMode.DirectoryDump:
+                    case PathModeType.DirectoryDump:
                         //This defines a method wherein all files are dumped into a user-specified directory
-                        throw new NotImplementedException("Directory Dump Mode Not Implemented");
-                        //break;
+                        destination = UserSpecifiedDirectory + Path.GetFileName(file);
+                        break;
+                    //break;
+                    case PathModeType.SmartDump:
+                        //This defines a method wherein all files are put into a user-specified directory
+                        //But will also copy the folder structure of the lowest common directory
+                        FileInfo fi = new FileInfo(UserSpecifiedDirectory + file.Remove(0, LCD.Length));
+                        fi.Directory.Create();
+                        destination = fi.FullName;
+                        break;
                 }
                 //Determine Procedure Needed Based On Target And Destination Extensions
                 if (destinationExtension == ".wav")
