@@ -21,7 +21,7 @@ namespace BUAFC_UI
         static TreeView Tree;
         static String BaseDirectory;
         static System.ComponentModel.PropertyChangedEventHandler CheckBoxChanged;
-        static FileSystemWatcher Watcher;
+        static FileSystemWatcher Watcher = new FileSystemWatcher();
 
         static DoubleAssociativeList<string, TreeViewModel> nodeList = new DoubleAssociativeList<string, TreeViewModel>();
 
@@ -69,6 +69,7 @@ namespace BUAFC_UI
                 TreeViewModel primaryDirectory = new TreeViewModel();
                 primaryDirectory.Name = folder.Substring(folder.LastIndexOf('\\') + 1);
                 primaryDirectory.Tag = folder;
+                primaryDirectory.Tooltip = folder;
 
                 //Track Node  By Adding It List
                 nodeList.Add(folder, primaryDirectory);
@@ -97,6 +98,7 @@ namespace BUAFC_UI
                 TreeViewModel item = new TreeViewModel();
                 item.Name = str.Substring(str.LastIndexOf('\\') + 1);
                 item.Tag = str;
+                item.Tooltip = str;
 
                 //Track Node  By Adding It List
                 nodeList.Add(str, item);
@@ -122,7 +124,8 @@ namespace BUAFC_UI
             
                 item_file.Name = fi.Name;
                 item_file.Tag = file;
-            
+                item_file.Tooltip = file;
+
                 item_file.PropertyChanged += CheckBoxChanged;
             
                 parentItem.Children.Add(item_file);

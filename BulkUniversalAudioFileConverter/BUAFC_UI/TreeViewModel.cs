@@ -26,6 +26,7 @@ namespace CheckBoxTreeView
         public List<TreeViewModel> Children { get; private set; }
         public bool IsInitiallySelected { get; private set; } = false;
         public object Tag { get; set; }
+        public object Tooltip { get; set; }
 
 
         bool? _isChecked = false;

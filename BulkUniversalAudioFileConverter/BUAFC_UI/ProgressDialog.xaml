@@ -4,14 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BUAFC_UI"
-        mc:Ignorable="d" Height="141" Width="491.667" Title="Conversion In Progress">
+        mc:Ignorable="d" Height="141" Width="491.667" Title="Conversion In Progress"
+        MaxHeight="150"
+        MaxWidth="1000" MinWidth="500" MinHeight="150">
     <Grid>
-        <ProgressBar x:Name="PRGBR_PROGRESS" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="277" Margin="10,76,0,0"/>
-        <Label x:Name="TXTB_Action" Content="STATUS TXT - REPORTS CURRENT ACTION ONTO A FILE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0" Width="465"/>
-        <Button x:Name="BUT_CANCEL" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="301,79,0,0" Click="BUT_CANCEL_Click"/>
-        <Label x:Name="TXTB_Directory" Content="STATUS TXT - REPORTS CURRENT DIRECTORY " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,14,0,0" Width="465"/>
-        <Button x:Name="BUT_OKAY" Content="Okay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="381,79,0,0" Click="BUT_OKAY_Click" IsEnabled="False"/>
-        <Label x:Name="TXTB_Prog" Content="STATUS TXT - REPORTS PROGRESS/TOTAL" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Width="277"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="317*"/>
+            <ColumnDefinition Width="168*" MaxWidth="170" MinWidth="170"/>
+        </Grid.ColumnDefinitions>
+        <ProgressBar x:Name="PRGBR_PROGRESS" Margin="10,0,0.333,10" MinWidth="300" MinHeight="25" VerticalAlignment="Bottom"/>
+        <Label x:Name="TXTB_Action" Content="STATUS TXT - REPORTS CURRENT ACTION ONTO A FILE" VerticalAlignment="Top" Margin="0,45,0,0" HorizontalAlignment="Left" Width="485" Grid.ColumnSpan="2"/>
+        <Button x:Name="BUT_CANCEL" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Margin="0,0,10.333,10" Click="BUT_CANCEL_Click" Grid.Column="1" ToolTip="Will attemp to terminate process, may take a moment to safetly exit the process."/>
+        <Label x:Name="TXTB_Directory" Content="STATUS TXT - REPORTS CURRENT DIRECTORY " VerticalAlignment="Top" Margin="0,14,0,0" HorizontalAlignment="Left" Width="485" Grid.ColumnSpan="2"/>
+        <Button x:Name="BUT_OKAY" Content="Okay" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Margin="0,0,90.333,10" Click="BUT_OKAY_Click" IsEnabled="False" Grid.Column="1"/>
+        <Label x:Name="TXTB_Prog" Content="STATUS TXT - REPORTS PROGRESS/TOTAL" VerticalAlignment="Bottom" Margin="10,0,0,10" MinWidth="300" MinHeight="25" Width="305"/>
 
     </Grid>
 </Window>

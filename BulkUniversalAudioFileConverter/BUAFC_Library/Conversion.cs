@@ -89,15 +89,16 @@ namespace BUAFC_Library
 
         #endregion
 
-        public delegate void Update(string CurrentDirectory, string CurrentAction, int Progress);
+        public delegate void Update(string CurrentDirectory, string CurrentAction, int Progress, out bool cancel, bool safeToExit);
 
         /// <summary>
         /// THREAD ENTRY
         /// </summary>
         public static void RunConversions(IEnumerable<string> targetFiles, string destinationExtension, Update update, bool deleteOriginal)
         {
-            string currentDirectory = "", currentAction = "", lowestCommonDirectory = "";
+            string currentDirectory = "", currentAction = "";
             int progress = 0;
+            bool cancel = false;
 
             //If the file mode is Smart Dump, Find The Lowest Common Directory
             string LCD = "";
@@ -113,6 +114,13 @@ namespace BUAFC_Library
                 currentAction = "Attemping to convert " + Path.GetFileName(file) + " to " + Path.GetFileNameWithoutExtension(file) + destinationExtension + ".";
                 callUpdate();
 
+                if (cancel)
+                {
+                    currentAction = "Successfully Terminated.";
+                    callUpdate(true);
+                    return;
+                }
+
                 //Determine The Destination File Path Name Based On PathMode
                 string destination = "";
 
@@ -127,7 +135,7 @@ namespace BUAFC_Library
                         break;
                     case PathModeType.DirectoryDump:
                         //This defines a method wherein all files are dumped into a user-specified directory
-                        destination = UserSpecifiedDirectory + Path.GetFileName(file);
+                        destination = UserSpecifiedDirectory + "\\" + Path.GetFileName(file);
                         break;
                     //break;
                     case PathModeType.SmartDump:
@@ -187,6 +195,13 @@ namespace BUAFC_Library
                 currentAction = "Finished converting " + Path.GetFileName(file) + " to " + Path.GetFileNameWithoutExtension(file) + destinationExtension + ".";
                 callUpdate();
 
+                if (cancel)
+                {
+                    currentAction = "Successfully Terminated.";
+                    callUpdate(true);
+                    return;
+                }
+
                 if (deleteOriginal)
                 {
                     currentAction = "Deleting " + Path.GetFileName(file) + ".";
@@ -198,9 +213,18 @@ namespace BUAFC_Library
             currentAction = "Finshed All Conversions";
             callUpdate();
 
-            void callUpdate()
+            if (cancel)
             {
-                Application.Current.Dispatcher.Invoke(new Action(() => { update(currentDirectory, currentAction, progress); }), null);
+                currentAction = "Successfully Terminated.";
+                callUpdate(true);
+                return;
+            }
+
+            void callUpdate(bool safe = false)
+            {
+                Application.Current.Dispatcher.Invoke(new Action(() => { update(currentDirectory, currentAction, progress, out cancel, safe); }), null);
+
+
             }
         }
 

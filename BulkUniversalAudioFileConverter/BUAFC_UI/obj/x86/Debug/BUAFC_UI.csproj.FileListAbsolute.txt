@@ -62,7 +62,6 @@ C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudi
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\BUAFC_UIPrototype.pdb
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\BUAFC_UI.csprojResolveAssemblyReference.cache
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\LoadingAnimation.baml
-C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\AdvancedOptionsWindow.g.cs
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\LoadingAnimation.g.cs
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\MainWindow.g.cs
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\MessageWindow.g.cs
@@ -114,7 +113,6 @@ C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFi
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\x86\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\x86\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\x86\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
-C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\AdvancedOptionsWindow.baml
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\MainWindow.baml
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\MessageWindow.baml
 C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\ProgressDialog.baml
@@ -129,3 +127,5 @@ C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudi
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\x86\Debug\ControlzEx.dll
 C:\Users\thepe_000\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\x86\Debug\ControlzEx.pdb
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\x86\Debug\ControlzEx.dll
+C:\Users\Joshua\Desktop\Bulk-Universal-Audio-File-Converter\BulkUniversalAudioFileConverter\BUAFC_UI\bin\x86\Debug\ControlzEx.pdb

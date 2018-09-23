@@ -26,10 +26,11 @@ namespace BUAFC_UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<string> SelectedFiles = new List<string>();
 
-        List<string> TruncatedFiles = new List<string>();
-        private int numberDirectoriesToTruncate = 0;
+        List<string> SelectedFiles = new List<string>();
+        List<ListBoxItem> TruncatedFiles = new List<ListBoxItem>();
+
+        private int numberDirectoriesToTruncate = 1;
 
         bool deleteOriginals = false;
 
@@ -38,9 +39,6 @@ namespace BUAFC_UI
         public MainWindow()
         {
             InitializeComponent();
-
-
-
 
             //Input Supported File Types Into Drop Downs
             PopulateItemCollectionFromIEnurmable(CMBB_TO.Items,   Conversion.SupportedExtensions);
@@ -68,15 +66,15 @@ namespace BUAFC_UI
             CCB_FROM.ItemsSource = UI_Lists.Extensions;
         }
 
-        
+
 
         #region EventHandlers
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        private void CMBB_TO_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshCheckPreview();
+        }
+        
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = sender as RadioButton;
@@ -85,13 +83,11 @@ namespace BUAFC_UI
             {
                 if (radioButton.Name == "RB_ALL")
                 {
-                    if (CCB_FROM != null)           CCB_FROM.IsEnabled =           false;
+                    if (CCB_FROM != null)
+                    {
+                        CCB_FROM.SelectedItems.Clear();
+                    }
 
-                }
-
-                if (radioButton.Name == "RB_STRICT")
-                {
-                    if (CCB_FROM != null)           CCB_FROM.IsEnabled =           true;
                 }
             }
         }
@@ -145,7 +141,7 @@ namespace BUAFC_UI
             else
                 SelectedFiles.Remove(path);
 
-            RefreshTruncatedList();
+            RefreshCheckPreview();
             LB_CHECK.Items.Refresh();
                
         }
@@ -155,32 +151,50 @@ namespace BUAFC_UI
             deleteOriginals = (bool)RB_DELETE.IsChecked;
         }
 
-        private void BUT_ADV_Click(object sender, RoutedEventArgs e)
-        {
-            AdvancedOptionsWindow window = new AdvancedOptionsWindow();
-            window.Show();
-
-        }
-
-        private void BUT_DISPLAYMORE_Click(object sender, RoutedEventArgs e)
-        {
-            --numberDirectoriesToTruncate;
-
-            if (numberDirectoriesToTruncate == 0)
-                BUT_DISPLAYMORE.IsEnabled = false;
-
-            RefreshTruncatedList();
-            LB_CHECK.Items.Refresh();
-        }
-
         private void BUT_DISPLAYLESS_Click(object sender, RoutedEventArgs e)
         {
             ++numberDirectoriesToTruncate;
 
             BUT_DISPLAYMORE.IsEnabled = true;
 
-            RefreshTruncatedList();
+            var holdforcomparison = new List<ListBoxItem>(TruncatedFiles);
+
+            RefreshCheckPreview();
+
+            if (CheckListsForSequenceEquality(holdforcomparison, TruncatedFiles))
+            {
+                numberDirectoriesToTruncate--;
+                BUT_DISPLAYLESS.IsEnabled = false;
+            }
+
             LB_CHECK.Items.Refresh();
+
+            bool CheckListsForSequenceEquality(List<ListBoxItem> A, List<ListBoxItem> B)
+            {
+                if (A.Count != B.Count)
+                    return false;
+
+                for (int i = 0; i < A.Count; ++i)
+                    if ((string)A[i].Content != (string)B[i].Content)
+                        return false;
+
+                return true;
+            }
+        }
+
+        private void BUT_DISPLAYMORE_Click(object sender, RoutedEventArgs e)
+        {
+            --numberDirectoriesToTruncate;
+
+            BUT_DISPLAYLESS.IsEnabled = true;
+
+            if (numberDirectoriesToTruncate == 0)
+                numberDirectoriesToTruncate = 1;
+
+            if (numberDirectoriesToTruncate == 1)
+                BUT_DISPLAYMORE.IsEnabled = false;
+
+            RefreshCheckPreview();
         }
 
         private void BUT_BROWSEPRIMARYDIRECTORY_Click(object sender, RoutedEventArgs e)
@@ -191,7 +205,7 @@ namespace BUAFC_UI
             {
                 PrimaryDirectoryPath = hello.SelectedPath;
                 SelectedFiles.Clear();
-                RefreshTruncatedList();
+                RefreshCheckPreview();
                 RefreshTreeView();
             }
 
@@ -211,18 +225,23 @@ namespace BUAFC_UI
                 case "In-Place":
                     Conversion.PathMode = Conversion.PathModeType.InPlace;
                     TXT_DEST.IsEnabled = false;
+                    BUT_BROWSEDEST_Copy.IsEnabled = false;
                     break;
                 case "Directory Dump":
                     Conversion.PathMode = Conversion.PathModeType.DirectoryDump;
                     TXT_DEST.IsEnabled = true;
+                    BUT_BROWSEDEST_Copy.IsEnabled = true;
                     break;
                 case "Smart Dump":
                     Conversion.PathMode = Conversion.PathModeType.SmartDump;
                     TXT_DEST.IsEnabled = true;
+                    BUT_BROWSEDEST_Copy.IsEnabled = true;
                     break;
                 default:
                     throw new ArgumentException();
             }
+
+            RefreshCheckPreview();
         }
 
         private void TXTB_PRIMARYDIRECTORY_KeyDown(object sender, KeyEventArgs e)
@@ -234,13 +253,20 @@ namespace BUAFC_UI
 
                 try
                 {
+                    //See If Directory Is Formated Validly
                     temp = System.IO.Path.GetFullPath(text.Text);
+                    //Check To See If Directory Exists
+                    if (!Directory.Exists(temp))
+                        throw new ArgumentException();
+
+
+                    text.Text = temp;
                     PrimaryDirectoryPath = temp;
                     RefreshTreeView();
                 }
-                catch (ArgumentException ae)
+                catch 
                 {
-
+                    MessageBoxResult result = MessageBox.Show("Entered Path: " + text.Text + "\nWas Invalid, Please Enter A Valid, Existing Path", "Confirm", MessageBoxButton.OK);
                 }
             }
         }
@@ -254,25 +280,101 @@ namespace BUAFC_UI
 
                 try
                 {
+                    //See If Directory Is Formated Validly
                     temp = System.IO.Path.GetFullPath(text.Text);
-                    Conversion.UserSpecifiedDirectory = temp;
-                }
-                catch (ArgumentException ae)
-                {
 
+                    text.Text = temp;
+                    Conversion.UserSpecifiedDirectory = temp;
+                    RefreshCheckPreview();
+
+                }
+                catch
+                {
+                    MessageBoxResult result = MessageBox.Show("Entered Path: " + text.Text + "\nWas Invalid, Please Enter A Correct Path", "Confirm", MessageBoxButton.OK);
                 }
             }
         }
+
+        private void CCB_FROM_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        {
+            if (CCB_FROM.SelectedItems.Count != 0)
+            {
+                RB_ALL.IsChecked = false;
+                RB_STRICT.IsChecked = true;
+            }
+        }
+
+        private void TXTB_GENERAL_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox box = e.OriginalSource as TextBox;
+
+            if (box != null)
+            {
+                box.SelectAll();
+                box.Focus();
+            }
+        }
+
+        private void BUT_BROWSEDEST_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog hello = new FolderBrowserDialog();
+
+            if (hello.ShowDialog() == true)
+            {
+                Conversion.UserSpecifiedDirectory = hello.SelectedPath;
+                TXT_DEST.Text = hello.SelectedPath;
+                RefreshCheckPreview();
+            }
+        }
+
+        private void IUD_BITRATE_CHANGED(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            Conversion.BitRate = (int)IUD_BITRATE.Value;
+        }
+
+        private void IUD_SAMPLE_CHANGED(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            Conversion.OGG_SAMPLESIZE1 = (int)IUD_SAMPLE.Value;
+        }
+
         #endregion
 
         #region ProcessingFunctions
 
-        private void RefreshTruncatedList()
+        private void RefreshCheckPreview()
         {
             TruncatedFiles.Clear();
 
-            foreach (var path in SelectedFiles)
-                TruncatedFiles.Add(UI_LIB.TruncatePathToDirectory(path, numberDirectoriesToTruncate));
+            string LCD = "";
+            if (Conversion.PathMode == Conversion.PathModeType.SmartDump)
+                LCD = BUAFC_Library.Utitlities.FindCommonPath("\\", SelectedFiles);
+
+            for (int i = 0; i < SelectedFiles.Count; ++i)
+            {
+                ListBoxItem temp = new ListBoxItem();
+                temp.Content = UI_LIB.TruncatePathToDirectory(SelectedFiles[i], numberDirectoriesToTruncate);
+                temp.ToolTip = SelectedFiles[i] + '\n' + "Will be converted to:" + '\n';
+                TruncatedFiles.Add(temp);
+
+                switch (Conversion.PathMode)
+                {
+                    case Conversion.PathModeType.DirectoryDump:
+                        temp.ToolTip += Conversion.UserSpecifiedDirectory + "\\" + System.IO.Path.GetFileName(SelectedFiles[i]).Remove(System.IO.Path.GetFileName(SelectedFiles[i]).LastIndexOf('.')) + CMBB_TO.SelectedValue;
+                        break;
+                    case Conversion.PathModeType.InPlace:
+                        temp.ToolTip += SelectedFiles[i].Remove(SelectedFiles[i].LastIndexOf('.')) + CMBB_TO.SelectedValue;
+                        break;
+                    case Conversion.PathModeType.SmartDump:
+                        FileInfo fi = new FileInfo(Conversion.UserSpecifiedDirectory + SelectedFiles[i].Remove(0, LCD.Length));
+                        fi.Directory.Create();
+                        if (fi.FullName.LastIndexOf('.') != "".LastIndexOf('.'))
+                            temp.ToolTip += fi.FullName.Remove(fi.FullName.LastIndexOf('.')) + CMBB_TO.SelectedValue;
+                        break;
+                }
+
+            }
+
+            LB_CHECK.Items.Refresh();
 
         }
 
@@ -290,7 +392,7 @@ namespace BUAFC_UI
 
             //Clear Selected Files
             SelectedFiles = new List<string>();
-            RefreshTruncatedList();
+            RefreshCheckPreview();
             LB_CHECK.Items.Refresh();
 
             //Loading Notification Show
@@ -317,7 +419,7 @@ namespace BUAFC_UI
                         pair.b.IsChecked = true;
                 }
 
-                RefreshTruncatedList();
+                RefreshCheckPreview();
                 TV_FROM.Items.Refresh();
             }
 
@@ -360,16 +462,9 @@ namespace BUAFC_UI
             thread.Start();
         }
 
+
+
         #endregion
-
-
-
-        private void CMBB_TO_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        
 
         
     }

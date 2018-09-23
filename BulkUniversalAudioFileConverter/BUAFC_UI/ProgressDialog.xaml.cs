@@ -44,19 +44,22 @@ namespace BUAFC_UI
             Close();
         }
 
-        public void UpdateFields(string CurrentDirectory, string CurrentAction, int Progress)
+        public void UpdateFields(string CurrentDirectory, string CurrentAction, int Progress, out bool cancel, bool safeToExit)
         {
             TXTB_Directory.Content = CurrentDirectory;
             TXTB_Action.Content = CurrentAction;
             TXTB_Prog.Content = Progress.ToString() + " / " + PRGBR_PROGRESS.Maximum.ToString();
             PRGBR_PROGRESS.Value = Progress;
 
-            if(Progress == PRGBR_PROGRESS.Maximum)
+            cancel = threadAborter;
+
+            if (Progress == PRGBR_PROGRESS.Maximum || safeToExit)
             {
                 //Conversion Is Done, Disable Cancel, Enable Okay
                 BUT_CANCEL.IsEnabled = false;
                 BUT_OKAY.IsEnabled = true;
             }
+
         }
     }
 

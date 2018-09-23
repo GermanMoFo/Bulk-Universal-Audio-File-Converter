@@ -141,9 +141,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AdvancedOptionsWindow.xaml.cs">
-      <DependentUpon>AdvancedOptionsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FolderTreeViewManager.cs" />
     <Compile Include="LoadingAnimation.xaml.cs">
       <DependentUpon>LoadingAnimation.xaml</DependentUpon>
@@ -156,10 +153,6 @@
     </Compile>
     <Compile Include="TreeViewModel.cs" />
     <Compile Include="UI_LIB.cs" />
-    <Page Include="AdvancedOptionsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LoadingAnimation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,9 +210,6 @@
       <Project>{60325bc4-ac67-44d4-b22d-0c7c1e5b3c38}</Project>
       <Name>BUAFC_Library</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="BUAFC Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Untitled-1.ico" />
