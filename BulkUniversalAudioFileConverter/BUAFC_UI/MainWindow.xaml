@@ -61,7 +61,8 @@
 
                 </Grid>
             </GroupBox>
-            <xctk:CheckComboBox x:Name="CCB_FROM" HorizontalAlignment="Left" Height="26" Margin="24,54,0,0" VerticalAlignment="Top" Width="143" ToolTip="Filter selection based on extension" ItemSelectionChanged="CCB_FROM_ItemSelectionChanged"/>
+            <xctk:CheckComboBox x:Name="CCB_FROM" HorizontalAlignment="Left" Height="26" Margin="51,56,0,0" VerticalAlignment="Top" Width="114" ToolTip="Filter selection based on extension" ItemSelectionChanged="CCB_FROM_ItemSelectionChanged"/>
+            <Label Content="Filter" HorizontalAlignment="Left" Margin="15,54,0,0" VerticalAlignment="Top"/>
         </Grid>
         <Button x:Name="BUT_BROWSEPRIMARYDIRECTORY" Content="Browse..." HorizontalAlignment="Right" Margin="0,34,0,0" VerticalAlignment="Top" Width="57" Click="BUT_BROWSEPRIMARYDIRECTORY_Click" Height="23" ToolTip="Select a directory from a dialog window."/>
         <TextBox x:Name="TXTB_PRIMARYDIRECTORY" Height="23" Margin="2,34,57.333,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" MinWidth="318" MinHeight="23" KeyDown="TXTB_PRIMARYDIRECTORY_KeyDown" GotFocus="TXTB_GENERAL_GotFocus">
